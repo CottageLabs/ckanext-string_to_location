@@ -18,13 +18,13 @@ from ckan.lib.navl.validators import not_empty
 
 from ckan.controllers.package import PackageController
 
-from ckanext.radar_dms.location_mapper_log_reader import LocationMapperLogReader
-from ckanext.radar_dms.location_mapper_log_writer import LocationMapperLogWriter
+from ckanext.string_to_location.location_mapper_log_reader import LocationMapperLogReader
+from ckanext.string_to_location.location_mapper_log_writer import LocationMapperLogWriter
 
-from ckanext.radar_dms.ons_entity_types import OnsEntityTypes
-from ckanext.radar_dms.null_ons_entity import NullOnsEntity
-from ckanext.radar_dms.ons_entity_builder import OnsEntityBuilder
-from ckanext.radar_dms.ons_code_mapper import OnsCodeMapper
+from ckanext.string_to_location.ons_entity_types import OnsEntityTypes
+from ckanext.string_to_location.null_ons_entity import NullOnsEntity
+from ckanext.string_to_location.ons_entity_builder import OnsEntityBuilder
+from ckanext.string_to_location.ons_code_mapper import OnsCodeMapper
 
 import codecs
 import csv
@@ -87,7 +87,7 @@ class LocationMapperController(PackageController):
 
         log_writer.info("Added new resource to dataset", state="complete")
 
-        return helpers.redirect_to(controller='ckanext.radar_dms.controller:LocationMapperController',
+        return helpers.redirect_to(controller='ckanext.string_to_location.controller:LocationMapperController',
                                    action='resource_location_mapping_status', id=id, resource_id=resource_id)
 
     def resource_location_mapping_status(self, id, resource_id):

@@ -16,8 +16,8 @@ import ckan.tests.helpers as helpers
 from ckan.lib.helpers import url_for
 from ckan.common import config
 
-from ckanext.radar_dms.location_mapper_log_reader import LocationMapperLogReader
-from ckanext.radar_dms.location_mapper_log_writer import LocationMapperLogWriter
+from ckanext.string_to_location.location_mapper_log_reader import LocationMapperLogReader
+from ckanext.string_to_location.location_mapper_log_writer import LocationMapperLogWriter
 
 
 class TestString_To_LocationPlugin(object):
