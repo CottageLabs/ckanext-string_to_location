@@ -7,6 +7,7 @@ from nose.tools import assert_true, assert_in
 import paste.fixture
 import pylons.test
 import json
+import csv
 
 import ckan.model as model
 import ckan.plugins
@@ -98,6 +99,38 @@ class TestString_To_LocationPlugin(object):
         assert_true(mapper_status['task_info'][
                     'logs'][0]['message'], "Testing")
 
+    def test_map_location_with_correctly_formatted_file(self):
+        app = helpers.FunctionalTestBase._get_test_app()
+        file = self._create_correctly_formatted_csv()
+        resource, package = self._create_csv_resource(file)
+
+        response = app.get("/dataset/" + package['id'] + "/resource/" + resource['id']+ "/map_location")
+
+        response.mustcontain('Complete')
+
+    # def test_map_location_with_incorrectly_formatted_file(self):
+    #     file = self._create_incorrectly_formatted_csv()        
+    #     resource, package = self._create_csv_resource(file)
+
+    #     response = 
+    #     # hit the map location route with that resource id
+    #     # expect the response to be a server error
+    #     pass
+
+    # def test_map_location_with_correctly_formatted_file_uploads_expected_resources_to_dataset(self):
+    #     file = self._create_correctly_formatted_csv()        
+    #     resource, package = self._create_csv_resource(file)
+    #     # hit the map location url with corret data
+    #     # check that the dataset has the expected additional resources attached
+    #     pass
+
+    # def test_map_location_with_incorrectly_formatted_file_no_uploads_to_dataset(self):
+    #     file = self._create_incorrectly_formatted_csv()        
+    #     resource, package = self._create_csv_resource(file)
+    #     # hit the map location url with wrong data
+    #     # check that the dataset has no additional resources attached
+    #     pass
+
     def _create_context(self):
         user = factories.Sysadmin()
         resource = factories.Resource()
@@ -107,3 +140,25 @@ class TestString_To_LocationPlugin(object):
         }
 
         return user, resource, context
+
+    def _create_correctly_formatted_csv(self):
+        data = [["Local authority", "Number"], ["Birmingham", 10]]
+        with open('test.csv', 'wb') as f:
+            writer = csv.writer(f)
+            writer.writerows(data)
+
+    def _create_incorrectly_formatted_csv(self):
+        data = [["Puppies", "Number"], ["Birmingham", 10]]
+        with open('test.csv', 'wb') as f:
+            writer = csv.writer(f)
+            writer.writerows(data)
+
+    def _create_csv_resource(self, file):
+        package = factories.Dataset()
+        resource = helpers.call_action('resource_create', 
+            name="test.csv", 
+            upload=file, 
+            package_id=package['id']
+            )
+
+        return resource, package

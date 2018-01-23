@@ -18,6 +18,9 @@ from ckan.lib.navl.validators import not_empty
 
 from ckan.controllers.package import PackageController
 
+import ckan.lib.uploader as uploader
+
+
 from ckanext.string_to_location.location_mapper_log_reader import LocationMapperLogReader
 from ckanext.string_to_location.location_mapper_log_writer import LocationMapperLogWriter
 
@@ -45,9 +48,9 @@ class LocationMapperController(PackageController):
 
         source_entity_type = OnsEntityTypes.LOCAL_AUTHORITY_DISTRICT
         target_entity_type = OnsEntityTypes.LOCAL_AUTHORITY_DISTRICT
-        resource_path = '/var/lib/ckan/resources/' + \
-            resource['id'][:3] + '/' + \
-            resource['id'][3:6] + '/' + resource['id'][6:]
+
+        upload = uploader.get_resource_uploader(resource)
+        resource_path = upload.get_path(resource['id'])
         column_name = 'Local authority'
         is_name = True
 
