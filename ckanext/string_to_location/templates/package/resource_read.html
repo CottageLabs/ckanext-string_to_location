@@ -2,5 +2,5 @@
 
 {% block resource_actions_inner %}
     {{ super() }}
-    <li>{% link_for _('Map Location'), controller='ckanext.radar_dms.controller:LocationMapperController', action='map_location', id=pkg.name, resource_id=res.id, class_='btn btn-default' %}</li>
+    <li>{% link_for _('Map Location'), controller='ckanext.string_to_location.controller:LocationMapperController', action='map_location', id=pkg.name, resource_id=res.id, class_='btn btn-default' %}</li>
 {% endblock %}

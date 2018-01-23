@@ -27,7 +27,7 @@ class OnsCodeMapper:
 
     """
 
-    la_csp_pf_mapping_path = '/usr/lib/ckan/default/src/plugins/ckanext-radar_dms/ckanext/radar_dms/data/lookups/Local_Authority_District_to_Community_Safety_Partnerships_to_Police_Force_Areas_December_2016_Lookup_in_England_and_Wales.geojson'
+    la_csp_pf_mapping_path = '/usr/lib/ckan/default/src/plugins/ckanext-string_to_location/ckanext/string_to_location/data/lookups/Local_Authority_District_to_Community_Safety_Partnerships_to_Police_Force_Areas_December_2016_Lookup_in_England_and_Wales.geojson'
     la_csp_pf_mapping = geojson.loads(open(la_csp_pf_mapping_path, "r").read())
 
     def __init__(self, ons_entity, target_entity_type):

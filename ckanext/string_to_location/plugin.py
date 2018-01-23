@@ -10,11 +10,11 @@ class String_To_LocationPlugin(plugins.SingletonPlugin):
 
     def before_map(self, map):
         map.connect('/dataset/{id}/resource/{resource_id}/map_location',
-                    controller='ckanext.radar_dms.controller:LocationMapperController',
+                    controller='ckanext.string_to_location.controller:LocationMapperController',
                     action='map_location')
         map.connect(
             'resource_location_mapping_status', '/dataset/{id}/resource_location_mapping_status/{resource_id}',
-            controller='ckanext.radar_dms.controller:LocationMapperController',
+            controller='ckanext.string_to_location.controller:LocationMapperController',
             action='resource_location_mapping_status')
         return map
 

@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-'''Tests for the ckanext.radar_dms.plugin module.'''
+'''Tests for the ckanext.string_to_location.plugin module.'''
 
 from nose.tools import assert_true, assert_in
 
