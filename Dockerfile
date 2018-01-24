@@ -3,14 +3,16 @@ MAINTAINER Ryan Brooks <ryan@slatehorse.com>
 
 # Set up the image to mirror how Travis Trusty image behaves
 ENV PGVERSION=9.3
+ENV JAVA_HOME=/usr/lib/jvm/default-java
 
 # A dirty hack to enable Postgres to start within this container
 # Definitely only suitable for tests!
 RUN sed -i "s/^exit 101$/exit 0/" /usr/sbin/policy-rc.d
 
 RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y sudo git python python-dev python-pip libpq-dev
-RUN pip install ez_setup
+    DEBIAN_FRONTEND=noninteractive apt-get install -y sudo git python python-dev python-pip libpq-dev && \
+    DEBIAN_FRONTEND=noninteractive apt-get remove python-setuptools
+RUN pip install ez_setup setuptools --upgrade
 
 # END Set up the image to mirror how Travis Trusty image behaves
 
