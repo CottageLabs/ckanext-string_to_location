@@ -2,9 +2,7 @@ from StringIO import StringIO
 import cgi
 import os
 import sys
-import logging
-from ckan.lib.base import request
-from ckan.lib.base import model
+
 from ckan.lib.base import render
 import ckan.lib.base as base
 import ckan.lib.helpers as helpers
@@ -46,10 +44,10 @@ class LocationMapperController(PackageController):
         resource = toolkit.get_action('resource_show')(
             context, {'id': resource_id})
 
-        log_writer = LocationMapperLogWriter(resource_id)
+        print("This is the resource")
+        print(resource)
 
-        source_entity_type = OnsEntityTypes.LOCAL_AUTHORITY_DISTRICT
-        target_entity_type = OnsEntityTypes.LOCAL_AUTHORITY_DISTRICT
+        log_writer = LocationMapperLogWriter(resource_id)        
         
         resource_path = uploader.get_resource_uploader(resource).get_path(resource['id'])
 
@@ -64,6 +62,13 @@ class LocationMapperController(PackageController):
             log_writer.error("The resource does not specify location columns", state="Something went wrong")
             return helpers.redirect_to(controller='ckanext.string_to_location.controller:LocationMapperController',
                                    action='resource_location_mapping_status', id=id, resource_id=resource_id)
+
+        if "Local authority" in column_name:
+            source_entity_type = OnsEntityTypes.LOCAL_AUTHORITY_DISTRICT
+        elif "Community Safety Partnership" in column_name:
+            source_entity_type = OnsEntityTypes.COMMUNITY_SAFETY_PARTNERSHIP
+
+        target_entity_type = OnsEntityTypes.LOCAL_AUTHORITY_DISTRICT
 
         resource_contents = codecs.open(resource_path, 'rb', 'cp1257')
 
