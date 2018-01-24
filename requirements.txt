@@ -4,4 +4,3 @@ xlrd
 geojson
 openpyxl
 enum34
-ckanext-scheming 
