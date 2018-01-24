@@ -49,8 +49,8 @@ class LocationMapperController(PackageController):
         source_entity_type = OnsEntityTypes.LOCAL_AUTHORITY_DISTRICT
         target_entity_type = OnsEntityTypes.LOCAL_AUTHORITY_DISTRICT
 
-        upload = uploader.get_resource_uploader(resource)
-        resource_path = upload.get_path(resource['id'])
+        resource_upload = uploader.get_resource_uploader(resource)
+        resource_path = resource_upload.get_path(resource['id'])
         column_name = 'Local authority'
         is_name = True
 
