@@ -8,9 +8,11 @@ sudo apt-get update -qq
 sudo apt-get install -y postgresql-$PGVERSION solr-jetty libcommons-fileupload-java:amd64=1.3-3
 
 echo "Installing CKAN and its Python dependencies..."
-git clone -b ckan-2.7.2-fixes https://github.com/CottageLabs/ckan
+git clone https://github.com/CottageLabs/ckan
 cd ckan
-export latest_ckan_release_branch=`git branch --all | grep remotes/origin/release-v | sort -r | sed 's/remotes\/origin\///g' | head -n 1`
+# Don't take the latest branch, use this fixed one...
+#export latest_ckan_release_branch=`git branch --all | grep remotes/origin/release-v | sort -r | sed 's/remotes\/origin\///g' | head -n 1`
+export latest_ckan_release_branch=ckan-2.7.2-fixes 
 echo "CKAN branch: $latest_ckan_release_branch"
 git checkout $latest_ckan_release_branch
 python setup.py develop
