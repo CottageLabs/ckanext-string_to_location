@@ -3,6 +3,7 @@
 '''Tests for the ckanext.string_to_location.plugin module.'''
 
 from nose.tools import assert_true, assert_in
+from StringIO import StringIO
 
 import paste.fixture
 import pylons.test
@@ -103,12 +104,10 @@ class TestString_To_LocationPlugin(object):
     def test_map_location_with_correctly_formatted_file(self):
         app = helpers.FunctionalTestBase._get_test_app()
         user, resource, context = self._create_context()
-        name = "test.csv"
 
-        self._create_correctly_formatted_csv(name)
+        output_buffer = self._create_correctly_formatted_csv()
 
-        file = open(name, "rb")
-        resource, package = self._create_csv_resource(file)
+        resource, package = self._create_csv_resource(output_buffer)
        
 
         response = helpers.webtest_maybe_follow(app.get("/dataset/" + package['id'] + "/resource/" + resource['id']+ "/map_location",
@@ -120,12 +119,9 @@ class TestString_To_LocationPlugin(object):
         app = helpers.FunctionalTestBase._get_test_app()
         user, resource, context = self._create_context()
 
-        name = "test.csv"
+        output_buffer = self._create_correctly_formatted_csv()
 
-        self._create_correctly_formatted_csv(name)
-
-        file = open(name, "rb")
-        resource, package = self._create_csv_resource(file)
+        resource, package = self._create_csv_resource(output_buffer)
        
 
         helpers.webtest_maybe_follow(app.get("/dataset/" + package['id'] + "/resource/" + resource['id']+ "/map_location",
@@ -154,17 +150,14 @@ class TestString_To_LocationPlugin(object):
 
         return user, resource, context
 
-    def _create_correctly_formatted_csv(self, name):
-        data = [["Local authority", "Number"], ["Birmingham", 10]]
-        with open(name, 'wb') as f:
-            writer = csv.writer(f)
-            writer.writerows(data)
+    def _create_correctly_formatted_csv(self):
+        output_buffer = StringIO()
 
-    def _create_incorrectly_formatted_csv(self, name):
-        data = [["Puppies", "Number"], ["Birmingham", 10]]
-        with open(name, 'wb') as f:
-            writer = csv.writer(f)
-            writer.writerows(data)
+        data = [["Local authority", "Number"], ["Birmingham", 10]]
+        writer = csv.writer(output_buffer)
+        writer.writerows(data)
+
+        return output_buffer
 
     def _create_csv_resource(self, file):
         package = factories.Dataset()
