@@ -18,6 +18,9 @@ from ckan.lib.navl.validators import not_empty
 
 from ckan.controllers.package import PackageController
 
+import ckan.lib.uploader as uploader
+
+
 from ckanext.string_to_location.location_mapper_log_reader import LocationMapperLogReader
 from ckanext.string_to_location.location_mapper_log_writer import LocationMapperLogWriter
 
@@ -31,6 +34,7 @@ import csv
 import geojson
 from geojson import Feature, FeatureCollection
 import pandas
+import ast
 
 
 class LocationMapperController(PackageController):
@@ -45,17 +49,25 @@ class LocationMapperController(PackageController):
 
         source_entity_type = OnsEntityTypes.LOCAL_AUTHORITY_DISTRICT
         target_entity_type = OnsEntityTypes.LOCAL_AUTHORITY_DISTRICT
-        resource_path = '/var/lib/ckan/resources/' + \
-            resource['id'][:3] + '/' + \
-            resource['id'][3:6] + '/' + resource['id'][6:]
-        column_name = 'Local authority'
-        is_name = True
+        
+        resource_path = uploader.get_resource_uploader(resource).get_path(resource['id'])
+
+        if 'location_column' in resource and 'location_type' in resource:
+            column_name = resource['location_column']
+            is_name = resource['location_type'].endswith('_name')
+        elif 'location_column' in resource['_extras'] and 'location_type' in resource['_extras']:
+            extras = ast.literal_eval(resource['_extras'])
+            column_name = extras['location_column']
+            is_name = extras['location_type'].endswith('_name')
+        else:
+            log_writer.error("The resource does not specify location columns", state="Something went wrong")
+            return helpers.redirect_to(controller='ckanext.string_to_location.controller:LocationMapperController',
+                                   action='resource_location_mapping_status', id=id, resource_id=resource_id)
 
         resource_contents = codecs.open(resource_path, 'rb', 'cp1257')
 
         table = pandas.read_csv(resource_contents)
 
-        resource = toolkit.get_action('resource_show')(context, {'id': resource_id})
         log_writer.info("Read file in")
 
         def get_geometry(name):
@@ -63,22 +75,84 @@ class LocationMapperController(PackageController):
 
             return entity.geo_polygon
 
-        # Augment the data frame with source polygon
-        table[source_entity_type.value + '_geometry'] = table.apply(lambda row: get_geometry(row[column_name]), axis=1)
 
-        csv_buffer = StringIO()
-        table.to_csv(csv_buffer, sep='\t')
+        # Build the matches array
+
+        # Attempt to map this from a CSP code into additional entities
+        sources = []
+        matches = []
+        errors = []
+        rows = 0
+        for index, row in table.iterrows():
+            rows += 1
+            # For CSP lookup
+            lookup_name = row[column_name]
+            # First, build the ONS entity, so we can pass that around consistently
+            # FIXME: this shouldn't be an if statement
+            ons_entity = OnsEntityBuilder.build(lookup_name, source_entity_type, is_name=is_name)
+
+            if not isinstance(ons_entity, NullOnsEntity):
+                sources.append(ons_entity)
+                row[source_entity_type.value + '_geojson'] = ons_entity.geo_polygon
+
+            # Second, convert the entity into a LAD (builds a new object, of course)
+            local_authority_district = OnsCodeMapper(ons_entity, target_entity_type).call()
+
+            if isinstance(local_authority_district, NullOnsEntity):
+                error_message = "Row:" + str(index) + ", " + lookup_name + " did not match."
+                errors.append(error_message)
+            else:
+                matches.append({
+                    'entity': local_authority_district,
+                    'row': row
+                })
+
+
+        def matches_to_geojson(match_array, properties):
+            features = []
+            for match in match_array:
+                geometry = match['entity'].geo_polygon.geometry
+                feature_properties = {}
+                for prop in properties:
+                    feature_properties[prop] = match['row'][prop]
+                feature = Feature(properties= feature_properties, geometry=geometry)
+                features.append(feature)
+
+            return FeatureCollection(features)
+
+        geojson_version = matches_to_geojson(matches, list(table.columns))
+
+        output_buffer = StringIO()
+        geojson.dump(geojson_version, output_buffer, allow_nan=True)
+
+        #
+        # Summary info
+        #
+
+        # match_count = len(matches)
+        # error_count = len(errors)
+
+        # matches_with_polygons = sum(1 for match in matches if match['entity'].geo_polygon is not None)
+
+        # print("========================")
+        # print("Summary:")
+        # print("")
+        # print(f"    {rows} rows in source file")
+        # print(f"    {match_count} {target_entity_type.value} mapped")
+        # print(f"    {error_count} errors")
+        # print("")
+        # print(f"    {matches_with_polygons} matches with polygons")
 
         upload = cgi.FieldStorage()
-        # FIXME: hard-coded filename
-        upload.filename = 'test.tsv'
-        upload.file = csv_buffer
+        # FIXME: replace with source filename + modified extension
+        upload.filename = 'mapped_output.geojson'
+        upload.file = output_buffer
 
         data_dict = {
             "package_id": resource['package_id'],
             "name": "Augmented " + resource['name'],
-            "description": "Augmented file containing local authority polygons",
-            "format": "text/tsv",
+            "description": "Geo-mapped representation of " + resource['name'],
+            "format": "application/geo+json",
             "upload": upload
         }
 
