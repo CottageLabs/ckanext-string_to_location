@@ -100,6 +100,9 @@ do::
 Running the Tests
 -----------------
 
+Edit the ``use`` line in ``test.ini`` to point to the location of the ckan ``test-core.ini`` file you wish to use, for example::
+    use = config:/usr/lib/ckan/default/src/ckan/test-core.ini
+
 To run the tests, do::
 
     nosetests --nologcapture --with-pylons=test.ini
