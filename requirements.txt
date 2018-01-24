@@ -4,4 +4,5 @@ xlrd
 geojson
 openpyxl
 enum34
-psyco
+# This should override the base CKAN requirement of 2.4. which breaks Travis
+psycopg2==2.7.3
