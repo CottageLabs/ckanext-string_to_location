@@ -124,7 +124,7 @@ class LocationMapperController(PackageController):
         geojson_version = matches_to_geojson(matches, list(table.columns))
 
         output_buffer = StringIO()
-        geojson.dump(geojson_version, output_buffer, allow_nan=True)
+        geojson.dump(geojson_version, output_buffer, ignore_nan=True)
 
         #
         # Summary info
