@@ -41,8 +41,13 @@ ckanext-string_to_location
 Requirements
 ------------
 
-For example, you might want to mention here which versions of CKAN this
-extension works with.
+This extension assumes you are storing metadata about the spreadsheet column where the location data is stored. 
+
+It will first check to see if that information is stored against the resource in the ``location_column`` and ``location_type`` fields. This will require you to have made changes to the schema, probably using another plugin.
+
+If it doesn't find those fields, it will check the ``_extras`` dict where CKAN allows you to store additional fields without changing the schema.
+
+If it doesn't find it in either it will redirect to the Location Mapper status page, log an error and stop processing.
 
 
 ------------
