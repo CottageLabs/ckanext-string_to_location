@@ -12,7 +12,7 @@ sudo service jetty restart
 sudo service postgresql restart
 
 nosetests --ckan \
-          --with-pylons=subdir/test.ini \
+          --with-pylons=test.ini \
           --with-coverage \
           --cover-package=ckanext.string_to_location \
           --cover-inclusive \
