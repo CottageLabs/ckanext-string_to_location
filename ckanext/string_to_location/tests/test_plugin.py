@@ -107,7 +107,12 @@ class TestString_To_LocationPlugin(object):
 
         output_buffer = self._create_correctly_formatted_csv()
 
-        resource, package = self._create_csv_resource(output_buffer)
+        extras = {
+            "location_column" : "Local authority",
+            "location_type" : "local_authority_name" 
+        }
+
+        resource, package = self._create_csv_resource(output_buffer, extras)
        
 
         response = helpers.webtest_maybe_follow(app.get("/dataset/" + package['id'] + "/resource/" + resource['id']+ "/map_location",
@@ -121,7 +126,12 @@ class TestString_To_LocationPlugin(object):
 
         output_buffer = self._create_correctly_formatted_csv()
 
-        resource, package = self._create_csv_resource(output_buffer)
+        extras = {
+            "location_column" : "Local authority",
+            "location_type" : "local_authority_name" 
+        }
+
+        resource, package = self._create_csv_resource(output_buffer, extras)
        
 
         helpers.webtest_maybe_follow(app.get("/dataset/" + package['id'] + "/resource/" + resource['id']+ "/map_location",
@@ -131,6 +141,18 @@ class TestString_To_LocationPlugin(object):
         
         assert_true((len(package['resources'])), 2)
 
+    def test_map_location_with_missing_resource_information(self):
+        app = helpers.FunctionalTestBase._get_test_app()
+        user, resource, context = self._create_context()
+
+        output_buffer = self._create_correctly_formatted_csv()
+
+        resource, package = self._create_csv_resource(output_buffer)
+
+        response = helpers.webtest_maybe_follow(app.get("/dataset/" + package['id'] + "/resource/" + resource['id']+ "/map_location",
+            extra_environ={'REMOTE_USER': str(user['name'])})) 
+
+        response.mustcontain("The resource does not specify location columns")   
     
     def test_map_location_with_incorrectly_formatted_file(self):
         # FIXME add test when we have handling for incorrectly formatted files
@@ -159,7 +181,7 @@ class TestString_To_LocationPlugin(object):
 
         return output_buffer
 
-    def _create_csv_resource(self, file):
+    def _create_csv_resource(self, file, extras={}):
         package = factories.Dataset()
 
         upload = cgi.FieldStorage()
@@ -169,7 +191,8 @@ class TestString_To_LocationPlugin(object):
         resource = helpers.call_action('resource_create', 
             package_id=package['id'], 
             name="test.csv", 
-            format="text/csv", 
+            format="text/csv",
+            _extras=extras, 
             upload=upload)
 
         return resource, package

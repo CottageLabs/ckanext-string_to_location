@@ -34,6 +34,7 @@ import csv
 import geojson
 from geojson import Feature, FeatureCollection
 import pandas
+import ast
 
 
 class LocationMapperController(PackageController):
@@ -50,14 +51,23 @@ class LocationMapperController(PackageController):
         target_entity_type = OnsEntityTypes.LOCAL_AUTHORITY_DISTRICT
         
         resource_path = uploader.get_resource_uploader(resource).get_path(resource['id'])
-        column_name = 'Local authority'
-        is_name = True
+
+        if 'location_column' in resource and 'location_type' in resource:
+            column_name = resource['location_column']
+            is_name = resource['location_type'].endswith('_name')
+        elif 'location_column' in resource['_extras'] and 'location_type' in resource['_extras']:
+            extras = ast.literal_eval(resource['_extras'])
+            column_name = extras['location_column']
+            is_name = extras['location_type'].endswith('_name')
+        else:
+            log_writer.error("The resource does not specify location columns", state="Something went wrong")
+            return helpers.redirect_to(controller='ckanext.string_to_location.controller:LocationMapperController',
+                                   action='resource_location_mapping_status', id=id, resource_id=resource_id)
 
         resource_contents = codecs.open(resource_path, 'rb', 'cp1257')
 
         table = pandas.read_csv(resource_contents)
 
-        resource = toolkit.get_action('resource_show')(context, {'id': resource_id})
         log_writer.info("Read file in")
 
         def get_geometry(name):
