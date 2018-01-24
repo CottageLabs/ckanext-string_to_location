@@ -1,11 +1,17 @@
 #!/bin/sh -e
 
-echo "NO_START=0\nJETTY_HOST=127.0.0.1\nJETTY_PORT=8983\nJAVA_HOME=$JAVA_HOME" | sudo tee /etc/default/jetty
+cat <<- EOF | sudo tee /etc/default/jetty
+NO_START=0
+JETTY_HOST=127.0.0.1
+JETTY_PORT=8983
+JETTY_USER=root
+JAVA_HOME=/usr/lib/jvm/default-java
+EOF
 sudo cp ckan/ckan/config/solr/schema.xml /etc/solr/conf/schema.xml
 sudo service jetty restart
+sudo service postgresql restart
 
 nosetests --ckan \
-          --nologcapture \
           --with-pylons=subdir/test.ini \
           --with-coverage \
           --cover-package=ckanext.string_to_location \
