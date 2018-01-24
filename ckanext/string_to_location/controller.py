@@ -50,14 +50,20 @@ class LocationMapperController(PackageController):
         target_entity_type = OnsEntityTypes.LOCAL_AUTHORITY_DISTRICT
         
         resource_path = uploader.get_resource_uploader(resource).get_path(resource['id'])
-        column_name = 'Local authority'
-        is_name = True
+
+        if 'location_column' in resource and 'location_type' in resource:
+            column_name = resource['location_column']
+            is_name = resource['location_type'].endswith('_name')
+        elif 'location_column' in resource['extras'] and 'location_type' in resource['extras']:
+            column_name = resource['location_column']
+            is_name = resource['location_type'].endswith('_name')
+        else:
+            raise MissingValue
 
         resource_contents = codecs.open(resource_path, 'rb', 'cp1257')
 
         table = pandas.read_csv(resource_contents)
 
-        resource = toolkit.get_action('resource_show')(context, {'id': resource_id})
         log_writer.info("Read file in")
 
         def get_geometry(name):
