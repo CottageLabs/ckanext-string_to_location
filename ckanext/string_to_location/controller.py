@@ -34,6 +34,7 @@ import csv
 import geojson
 from geojson import Feature, FeatureCollection
 import pandas
+import ast
 
 
 class LocationMapperController(PackageController):
@@ -54,11 +55,14 @@ class LocationMapperController(PackageController):
         if 'location_column' in resource and 'location_type' in resource:
             column_name = resource['location_column']
             is_name = resource['location_type'].endswith('_name')
-        elif 'location_column' in resource['extras'] and 'location_type' in resource['extras']:
-            column_name = resource['location_column']
-            is_name = resource['location_type'].endswith('_name')
+        elif 'location_column' in resource['_extras'] and 'location_type' in resource['_extras']:
+            extras = ast.literal_eval(resource['_extras'])
+            column_name = extras['location_column']
+            is_name = extras['location_type'].endswith('_name')
         else:
-            raise MissingValue
+            log_writer.error("The resource does not specify location columns", state="Something went wrong")
+            return helpers.redirect_to(controller='ckanext.string_to_location.controller:LocationMapperController',
+                                   action='resource_location_mapping_status', id=id, resource_id=resource_id)
 
         resource_contents = codecs.open(resource_path, 'rb', 'cp1257')
 
