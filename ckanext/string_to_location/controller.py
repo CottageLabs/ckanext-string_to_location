@@ -49,7 +49,7 @@ class LocationMapperController(PackageController):
 
         source_entity_type = OnsEntityTypes.LOCAL_AUTHORITY_DISTRICT
         target_entity_type = OnsEntityTypes.LOCAL_AUTHORITY_DISTRICT
-        
+
         resource_path = uploader.get_resource_uploader(resource).get_path(resource['id'])
 
         if 'location_column' in resource and 'location_type' in resource:
@@ -66,6 +66,7 @@ class LocationMapperController(PackageController):
 
         resource_contents = codecs.open(resource_path, 'rb', 'cp1257')
 
+        # TODO remove dependency on pandas, because it adds 9 minutes to the build
         table = pandas.read_csv(resource_contents)
 
         log_writer.info("Read file in")
@@ -93,7 +94,6 @@ class LocationMapperController(PackageController):
 
             if not isinstance(ons_entity, NullOnsEntity):
                 sources.append(ons_entity)
-                row[source_entity_type.value + '_geojson'] = ons_entity.geo_polygon
 
             # Second, convert the entity into a LAD (builds a new object, of course)
             local_authority_district = OnsCodeMapper(ons_entity, target_entity_type).call()
