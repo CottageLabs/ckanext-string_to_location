@@ -1,7 +1,7 @@
 #FIXME: Should be exported from Pipenv rather than copy-pasted
 
-pandas
 xlrd
 geojson
 openpyxl
 enum34
+ckanext-scheming 
