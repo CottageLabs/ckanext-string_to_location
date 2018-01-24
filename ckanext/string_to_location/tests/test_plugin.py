@@ -13,8 +13,10 @@ import cgi
 
 import ckan.model as model
 import ckan.plugins
+import ckan.lib.helpers as h
 import ckan.tests.factories as factories
 import ckan.tests.helpers as helpers
+
 
 from ckan.lib.helpers import url_for
 from ckan.common import config
@@ -119,6 +121,30 @@ class TestString_To_LocationPlugin(object):
             extra_environ={'REMOTE_USER': str(user['name'])}))
 
         response.mustcontain('Complete')
+
+    def test_location_mapper_tab_contains_new_resource_url(self):
+        app = helpers.FunctionalTestBase._get_test_app()
+        user, resource, context = self._create_context()
+
+        output_buffer = self._create_correctly_formatted_csv()
+
+        extras = {
+            "location_column" : "Local authority",
+            "location_type" : "local_authority_name" 
+        }
+
+        resource, package = self._create_csv_resource(output_buffer, extras)
+       
+
+        response = helpers.webtest_maybe_follow(app.get("/dataset/" + package['id'] + "/resource/" + resource['id']+ "/map_location",
+            extra_environ={'REMOTE_USER': str(user['name'])}))
+
+        response.mustcontain("Added new resource to dataset " \
+                                + config.get('ckan.site_url')  \
+                                + h.url_for(controller='package', 
+                                                action='resource_read', 
+                                                id=resource['package_id'], 
+                                                resource_id=resource['id']))
 
     def test_map_location_with_correctly_formatted_file_uploads_expected_resources_to_dataset(self):
         app = helpers.FunctionalTestBase._get_test_app()
