@@ -131,19 +131,15 @@ class LocationMapperController(PackageController):
         # print("")
         # print(f"    {matches_with_polygons} matches with polygons")
 
-        # END build matches array
-
-        # Augment the data frame with source polygon
-
         upload = cgi.FieldStorage()
-        # FIXME: hard-coded filename
-        upload.filename = 'test.geojson'
+        # FIXME: replace with source filename + modified extension
+        upload.filename = 'mapped_output.geojson'
         upload.file = output_buffer
 
         data_dict = {
             "package_id": resource['package_id'],
             "name": "Augmented " + resource['name'],
-            "description": "Augmented file containing local authority polygons",
+            "description": "Geo-mapped representation of " + resource['name'],
             "format": "application/geo+json",
             "upload": upload
         }
