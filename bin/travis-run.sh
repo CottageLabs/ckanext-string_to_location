@@ -1,5 +1,6 @@
 #!/bin/sh -e
 
+sudo service redis restart
 sudo service solr restart
 sudo service postgresql restart
 
