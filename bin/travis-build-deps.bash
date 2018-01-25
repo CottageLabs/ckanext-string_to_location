@@ -16,6 +16,7 @@ sudo apt-get update -qq
 echo 'oracle-java8-installer shared/accepted-oracle-license-v1-1 boolean true' | debconf-set-selections
 DEBIAN_FRONTEND=noninteractive apt-get -y install oracle-java8-installer
 
+echo "Installing Solr"
 cd /tmp
 curl -s --remote-name-all http://apache.mirror.anlx.net/lucene/solr/6.6.2/solr-6.6.2.tgz
 tar xzf solr-6.6.2.tgz solr-6.6.2/bin/install_solr_service.sh --strip-components=2
@@ -40,37 +41,9 @@ sudo -u postgres psql -c "CREATE USER ckan_default WITH PASSWORD 'pass';"
 sudo -u postgres psql -c 'CREATE DATABASE ckan_test WITH OWNER ckan_default;'
 
 echo "SOLR config..."
-
-# Adding Files
-# SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-# sudo cp ${SCRIPT_DIR}/../solrconfig.xml /etc/solr/conf/
-
 SOLR_CORE=ckan
-SOLR_USER=root
-SOLR_PATH=/var/solr/data/$SOLR_CORE
-
-# # Create Directories
-# mkdir -p ${SOLR_PATH}/conf
-# mkdir -p ${SOLR_PATH}/data
-
-
-sudo -u solr -c "/opt/solr/bin/solr create -c ${SOLR_CORE}"
-
-# Adding Files
-# SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-# cp  ${SCRIPT_DIR}/solrconfig.xml $SOLR_PATH/conf/
-
-sudo cp ckan/ckan/config/solr/schema.xml $SOLR_PATH/conf/
-
-# Create Core.properties
-# echo name=$SOLR_CORE > $SOLR_PATH/core.properties
-
-# Giving ownership to Solr
-# chown -R $SOLR_USER:$SOLR_USER $SOLR_PATH
-
-# Solr is multicore for tests on ckan master, but it's easier to run tests on
-# Travis single-core. See https://github.com/ckan/ckan/issues/2972
-# sed -i -e 's/solr_url.*/solr_url = http:\/\/127.0.0.1:8983\/solr/' ckan/test-core.ini
+sudo -u solr /opt/solr/bin/solr create -c ${SOLR_CORE}
+sudo cp ckan/ckan/config/solr/schema.xml /var/solr/data/${SOLR_CORE}/conf/
 
 echo "Initialising the database..."
 cd ckan
