@@ -10,7 +10,7 @@ ENV JAVA_HOME=/usr/lib/jvm/default-java
 RUN sed -i "s/^exit 101$/exit 0/" /usr/sbin/policy-rc.d
 
 RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y sudo git python python-dev python-pip libpq-dev
+    DEBIAN_FRONTEND=noninteractive apt-get install -y sudo curl git python python-dev python-pip libpq-dev
 RUN pip install --upgrade ez_setup setuptools pip
 
 # END Set up the image to mirror how Travis Trusty image behaves
@@ -23,8 +23,6 @@ ADD bin ./bin
 
 ADD solrconfig.xml .
 RUN ./bin/travis-build-deps.bash
-
-
 
 ADD . .
 RUN ./bin/travis-build-plugin.bash

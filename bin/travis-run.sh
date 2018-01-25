@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-sudo service jetty restart
+sudo service solr restart
 sudo service postgresql restart
 
 nosetests --ckan \
