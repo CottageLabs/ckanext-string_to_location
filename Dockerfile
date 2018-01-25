@@ -21,7 +21,6 @@ WORKDIR $PLUGIN_DIRECTORY
 RUN mkdir -p $PLUGIN_DIRECTORY
 ADD bin ./bin
 
-ADD solrconfig.xml .
 RUN ./bin/travis-build-deps.bash
 
 ADD . .
