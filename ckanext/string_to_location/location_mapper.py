@@ -4,21 +4,10 @@ import sys
 import codecs
 import csv
 import geojson
-import pandas
-import ast
 
 from geojson import Feature, FeatureCollection
 from StringIO import StringIO
 
-import ckan.lib.helpers as helpers
-import ckan.lib.uploader as uploader
-from ckan.lib.navl.validators import not_empty
-from ckan.common import c
-from ckan.common import config
-import ckan.model
-import ckan.logic as logic
-
-from ckanext.string_to_location.location_mapper_log_writer import LocationMapperLogWriter
 from ckanext.string_to_location.ons_entity_types import OnsEntityTypes
 from ckanext.string_to_location.null_ons_entity import NullOnsEntity
 from ckanext.string_to_location.ons_entity_builder import OnsEntityBuilder
@@ -27,35 +16,29 @@ from ckanext.string_to_location.ons_code_mapper import OnsCodeMapper
 
 class LocationMapper:
 
-    def __init__(self, resource):
-        self.resource = resource
-        self.log_writer = LocationMapperLogWriter(self.resource['id'])
+    COLUMN_TO_ENTITY = {
+        "Local authority" : OnsEntityTypes.LOCAL_AUTHORITY_DISTRICT,
+        "Community Safety Partnership" : OnsEntityTypes.COMMUNITY_SAFETY_PARTNERSHIP
+    }
+
+    def __init__(self, table, column_name, is_name):
+        self.table = table
+        self.column_name = column_name
+        self.is_name = is_name
 
     def map_location(self):
                        
-        column_name, is_name = self._set_column_name_and_type(self.resource)
+        source_entity_type = self.COLUMN_TO_ENTITY[self.column_name]
+        target_entity_type = OnsEntityTypes.LOCAL_AUTHORITY_DISTRICT
+       
+        matches, errors = self._build_matches(self.table, self.column_name, self.is_name, source_entity_type, target_entity_type)
 
-        # FIXME: This doesn't feel right
-        if column_name is None:
-            return
-
-        source_entity_type, target_entity_type = self._set_source_and_target(column_name)  
-
-        resource_path = uploader.get_resource_uploader(self.resource).get_path(self.resource['id'])
-        resource_contents = codecs.open(resource_path, 'rb', 'cp1257')
-
-        table = pandas.read_csv(resource_contents)
-
-        self.log_writer.info("Read " + self.resource['name'] + " in")
-        
-        matches, errors = self._build_matches(table, column_name, is_name, source_entity_type, target_entity_type)
-
-        geojson_version = self._matches_to_geojson(matches, list(table.columns))
+        geojson_version = self._matches_to_geojson(matches, list(self.table.columns))
 
         output_buffer = StringIO()
         geojson.dump(geojson_version, output_buffer, ignore_nan=True)
 
-        self._upload_augmented_resource(self.resource, output_buffer)
+        return output_buffer        
 
         #
         # Summary info
@@ -87,34 +70,6 @@ class LocationMapper:
                 features.append(feature)
 
             return FeatureCollection(features)
-
-    def _set_column_name_and_type(self, resource):
-
-        if 'location_column' in resource and 'location_type' in resource:
-            column_name = resource['location_column']
-            is_name = resource['location_type'].endswith('_name')
-        elif 'location_column' in resource['_extras'] and 'location_type' in resource['_extras']:
-            extras = ast.literal_eval(resource['_extras'])
-            column_name = extras['location_column']
-            is_name = extras['location_type'].endswith('_name')
-        else:
-            column_name = None
-            is_name = None
-            self.log_writer.error("The resource does not specify location columns", state="Something went wrong")
-
-        return column_name, is_name
-
-    def _set_source_and_target(self, column_name):
-
-        if "Local authority" in column_name:
-            source_entity_type = OnsEntityTypes.LOCAL_AUTHORITY_DISTRICT 
-
-        elif "Community Safety Partnership" in column_name:
-            source_entity_type = OnsEntityTypes.COMMUNITY_SAFETY_PARTNERSHIP
-
-        target_entity_type = OnsEntityTypes.LOCAL_AUTHORITY_DISTRICT
-
-        return source_entity_type, target_entity_type
 
     def _build_matches(self, table, column_name, is_name, source_entity_type, target_entity_type):
         # Build the matches array
@@ -150,27 +105,4 @@ class LocationMapper:
 
         return matches, errors
 
-    def _upload_augmented_resource(self, resource, output_buffer):
-        upload = cgi.FieldStorage()
-        # FIXME: replace with source filename + modified extension
-        upload.filename = 'mapped_output.geojson'
-        upload.file = output_buffer
-
-        data_dict = {
-            "package_id": resource['package_id'],
-            "name": "Augmented " + resource['name'],
-            "description": "Geo-mapped representation of " + resource['name'],
-            "format": "application/geo+json",
-            "upload": upload
-        }
-
-        new_resource = logic.action.create.resource_create(
-            {"model": ckan.model, "user": c.userobj.name}, data_dict)
-
-        self.log_writer.info("Added new resource to dataset " \
-                       + config.get('ckan.site_url')  \
-                       + helpers.url_for(controller='package', 
-                                        action='resource_read', 
-                                        id=new_resource['package_id'], 
-                                        resource_id=new_resource['id']), 
-                       state="complete")
+    
