@@ -12,7 +12,7 @@ git clone https://github.com/CottageLabs/ckan
 cd ckan
 # Don't take the latest branch, use this fixed one...
 #export latest_ckan_release_branch=`git branch --all | grep remotes/origin/release-v | sort -r | sed 's/remotes\/origin\///g' | head -n 1`
-export latest_ckan_release_branch=ckan-2.7.2-fixes 
+export latest_ckan_release_branch=ckan-2.7.2-fixes
 echo "CKAN branch: $latest_ckan_release_branch"
 git checkout $latest_ckan_release_branch
 python setup.py develop
@@ -25,6 +25,20 @@ sudo -u postgres psql -c "CREATE USER ckan_default WITH PASSWORD 'pass';"
 sudo -u postgres psql -c 'CREATE DATABASE ckan_test WITH OWNER ckan_default;'
 
 echo "SOLR config..."
+cat <<- EOF | sudo tee -a /etc/default/jetty
+NO_START=0
+JETTY_HOST=127.0.0.1
+JETTY_PORT=8983
+JETTY_USER=root
+JAVA_HOME=$JAVA_HOME
+EOF
+
+# Adding Files
+# SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+# sudo cp ${SCRIPT_DIR}/../solrconfig.xml /etc/solr/conf/
+
+sudo cp ckan/ckan/config/solr/schema.xml /etc/solr/conf/schema.xml
+
 # Solr is multicore for tests on ckan master, but it's easier to run tests on
 # Travis single-core. See https://github.com/ckan/ckan/issues/2972
 sed -i -e 's/solr_url.*/solr_url = http:\/\/127.0.0.1:8983\/solr/' ckan/test-core.ini
