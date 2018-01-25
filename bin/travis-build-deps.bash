@@ -11,7 +11,7 @@ sudo apt-get install -y postgresql-$PGVERSION libcommons-fileupload-java:amd64=1
 # Install Java/Solr
 # sudo apt-get install -y openjdk-8-jre
 sudo apt-get install -y software-properties-common python-software-properties
-add-apt-repository -y ppa:webupd8team/java
+sudo add-apt-repository -y ppa:webupd8team/java
 sudo apt-get update -qq
 echo 'oracle-java8-installer shared/accepted-oracle-license-v1-1 boolean true' | sudo debconf-set-selections
 DEBIAN_FRONTEND=noninteractive sudo apt-get -y install oracle-java8-installer
