@@ -10,6 +10,7 @@ import ckan.lib.base as base
 import ckan.lib.helpers as helpers
 import ckan.plugins.toolkit as toolkit
 from ckan.common import c
+from ckan.common import config
 import ckan.model
 
 import ckan.logic as logic
@@ -123,7 +124,7 @@ class LocationMapperController(PackageController):
         geojson_version = matches_to_geojson(matches, list(table.columns))
 
         output_buffer = StringIO()
-        geojson.dump(geojson_version, output_buffer, allow_nan=True)
+        geojson.dump(geojson_version, output_buffer, ignore_nan=True)
 
         #
         # Summary info
@@ -159,7 +160,13 @@ class LocationMapperController(PackageController):
         logic.action.create.resource_create(
             {"model": ckan.model, "user": c.userobj.name}, data_dict)
 
-        log_writer.info("Added new resource to dataset", state="complete")
+        log_writer.info("Added new resource to dataset " \
+                       + config.get('ckan.site_url')  \
+                       + helpers.url_for(controller='package', 
+                                        action='resource_read', 
+                                        id=resource['package_id'], 
+                                        resource_id=resource['id']), 
+                       state="complete")
 
         return helpers.redirect_to(controller='ckanext.string_to_location.controller:LocationMapperController',
                                    action='resource_location_mapping_status', id=id, resource_id=resource_id)
