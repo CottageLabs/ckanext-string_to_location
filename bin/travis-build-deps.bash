@@ -13,8 +13,8 @@ sudo apt-get install -y postgresql-$PGVERSION libcommons-fileupload-java:amd64=1
 sudo apt-get install -y software-properties-common python-software-properties
 add-apt-repository -y ppa:webupd8team/java
 sudo apt-get update -qq
-echo 'oracle-java8-installer shared/accepted-oracle-license-v1-1 boolean true' | debconf-set-selections
-DEBIAN_FRONTEND=noninteractive apt-get -y install oracle-java8-installer
+echo 'oracle-java8-installer shared/accepted-oracle-license-v1-1 boolean true' | sudo debconf-set-selections
+DEBIAN_FRONTEND=noninteractive sudo apt-get -y install oracle-java8-installer
 
 echo "Installing Solr"
 cd /tmp
