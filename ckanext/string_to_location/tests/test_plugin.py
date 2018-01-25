@@ -10,6 +10,7 @@ import pylons.test
 import json
 import csv
 import cgi
+import operator
 
 import ckan.model as model
 import ckan.plugins
@@ -139,12 +140,21 @@ class TestString_To_LocationPlugin(object):
         response = helpers.webtest_maybe_follow(app.get("/dataset/" + package['id'] + "/resource/" + resource['id']+ "/map_location",
             extra_environ={'REMOTE_USER': str(user['name'])}))
 
+        # refresh the package
+        package = helpers.call_action('package_show', id=package['id'])
+
+        # get the resource list for the package, sort them in descending order so the most recently created on is first
+
+        resources = sorted(package['resources'], key=operator.itemgetter('created'), reverse=True)
+
+        new_resource = resources[0]
+
         response.mustcontain("Added new resource to dataset " \
                                 + config.get('ckan.site_url')  \
                                 + h.url_for(controller='package', 
-                                                action='resource_read', 
-                                                id=resource['package_id'], 
-                                                resource_id=resource['id']))
+                                            action='resource_read', 
+                                            id=new_resource['package_id'], 
+                                            resource_id=new_resource['id']))
 
     def test_map_location_with_correctly_formatted_file_uploads_expected_resources_to_dataset(self):
         app = helpers.FunctionalTestBase._get_test_app()

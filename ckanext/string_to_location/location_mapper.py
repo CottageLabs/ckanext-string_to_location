@@ -164,13 +164,13 @@ class LocationMapper:
             "upload": upload
         }
 
-        logic.action.create.resource_create(
+        new_resource = logic.action.create.resource_create(
             {"model": ckan.model, "user": c.userobj.name}, data_dict)
 
         self.log_writer.info("Added new resource to dataset " \
                        + config.get('ckan.site_url')  \
                        + helpers.url_for(controller='package', 
                                         action='resource_read', 
-                                        id=resource['package_id'], 
-                                        resource_id=resource['id']), 
+                                        id=new_resource['package_id'], 
+                                        resource_id=new_resource['id']), 
                        state="complete")
