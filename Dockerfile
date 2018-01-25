@@ -9,6 +9,7 @@ ENV JAVA_HOME=/usr/lib/jvm/default-java
 # Definitely only suitable for tests!
 RUN sed -i "s/^exit 101$/exit 0/" /usr/sbin/policy-rc.d
 
+
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y sudo curl git python python-dev python-pip libpq-dev
 RUN pip install --upgrade ez_setup setuptools pip
@@ -21,6 +22,7 @@ WORKDIR $PLUGIN_DIRECTORY
 RUN mkdir -p $PLUGIN_DIRECTORY
 ADD bin ./bin
 
+RUN ./bin/install-redis.sh
 RUN ./bin/travis-build-deps.bash
 
 ADD . .
