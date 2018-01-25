@@ -1,3 +1,4 @@
+import os
 import geojson
 import ckan.logic as logic
 
