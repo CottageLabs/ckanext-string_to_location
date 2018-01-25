@@ -48,7 +48,7 @@ class TestString_To_LocationPlugin(object):
         output_buffer = self._create_correctly_formatted_csv()
 
         extras = {
-            "location_column" : "Local authority",
+            "location_column" : "Local Authority District",
             "location_type" : "local_authority_name" 
         }
 
@@ -67,7 +67,7 @@ class TestString_To_LocationPlugin(object):
         output_buffer = self._create_correctly_formatted_csv()
 
         extras = {
-            "location_column" : "Local authority",
+            "location_column" : "Local Authority District",
             "location_type" : "local_authority_name" 
         }
 
@@ -100,7 +100,7 @@ class TestString_To_LocationPlugin(object):
         output_buffer = self._create_correctly_formatted_csv()
 
         extras = {
-            "location_column" : "Local authority",
+            "location_column" : "Local Authority District",
             "location_type" : "local_authority_name" 
         }
 
@@ -140,7 +140,7 @@ class TestString_To_LocationPlugin(object):
     def _create_correctly_formatted_csv(self):
         output_buffer = StringIO()
 
-        data = [["Local authority", "Number"], ["Birmingham", 10]]
+        data = [["Local Authority District", "Number"], ["Birmingham", 10]]
         writer = csv.writer(output_buffer)
         writer.writerows(data)
 

@@ -17,7 +17,7 @@ from ckanext.string_to_location.ons_code_mapper import OnsCodeMapper
 class LocationMapper:
 
     COLUMN_TO_ENTITY = {
-        "Local authority" : OnsEntityTypes.LOCAL_AUTHORITY_DISTRICT,
+        "Local Authority District" : OnsEntityTypes.LOCAL_AUTHORITY_DISTRICT,
         "Community Safety Partnership" : OnsEntityTypes.COMMUNITY_SAFETY_PARTNERSHIP
     }
 
