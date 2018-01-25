@@ -87,11 +87,11 @@ class LocationMapperController(PackageController):
 
         if 'location_column' in resource and 'location_type' in resource:
             column_name = resource['location_column']
-            is_name = resource['location_type'].endswith('_name')
+            is_name = True if resource['location_type'] == 'name' else False
         elif 'location_column' in resource['_extras'] and 'location_type' in resource['_extras']:
             extras = ast.literal_eval(resource['_extras'])
             column_name = extras['location_column']
-            is_name = extras['location_type'].endswith('_name')
+            is_name = True if extras['location_type'] == 'name' else False
         else:
             column_name = None
             is_name = None

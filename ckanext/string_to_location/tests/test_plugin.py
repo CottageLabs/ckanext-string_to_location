@@ -49,7 +49,7 @@ class TestString_To_LocationPlugin(object):
 
         extras = {
             "location_column" : "Local Authority District",
-            "location_type" : "local_authority_name" 
+            "location_type" : "name" 
         }
 
         resource, package = self._create_csv_resource(output_buffer, extras)
@@ -68,7 +68,7 @@ class TestString_To_LocationPlugin(object):
 
         extras = {
             "location_column" : "Local Authority District",
-            "location_type" : "local_authority_name" 
+            "location_type" : "name" 
         }
 
         resource, package = self._create_csv_resource(output_buffer, extras)
@@ -101,7 +101,7 @@ class TestString_To_LocationPlugin(object):
 
         extras = {
             "location_column" : "Local Authority District",
-            "location_type" : "local_authority_name" 
+            "location_type" : "name" 
         }
 
         resource, package = self._create_csv_resource(output_buffer, extras)
