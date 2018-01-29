@@ -1,0 +1,6 @@
+FROM python:2.7.8-onbuild
+
+# Because it's a monster 9 minute build:
+RUN pip install pandas
+
+CMD [ "python", "ckanext/string_to_location/app/main.py", "ckanext/string_to_location/app/settings.py"]
