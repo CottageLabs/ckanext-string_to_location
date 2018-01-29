@@ -5,3 +5,4 @@ xlrd
 geojson
 openpyxl
 enum34
+ckanserviceprovider==0.0.6
