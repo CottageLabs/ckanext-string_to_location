@@ -41,7 +41,7 @@ class TestString_To_LocationPlugin(object):
         config.update(cls.original_config)
         ckan.plugins.unload('string_to_location')
 
-    def test_map_location_with_correctly_formatted_file(self):
+    def test_map_location_with_local_authority_district(self):
         app = helpers.FunctionalTestBase._get_test_app()
         user, resource, context = self._create_context()
 
@@ -49,6 +49,25 @@ class TestString_To_LocationPlugin(object):
 
         extras = {
             "location_column" : "Local Authority District",
+            "location_type" : "local_authority_district_name" 
+        }
+
+        resource, package = self._create_csv_resource(output_buffer, extras)
+       
+
+        response = helpers.webtest_maybe_follow(app.get("/dataset/" + package['id'] + "/resource/" + resource['id']+ "/map_location",
+            extra_environ={'REMOTE_USER': str(user['name'])}))
+
+        response.mustcontain('Complete')
+
+    def test_map_location_with_sample_file(self):
+        app = helpers.FunctionalTestBase._get_test_app()
+        user, resource, context = self._create_context()
+
+        output_buffer = self._load_correctly_formatted_csv()
+
+        extras = {
+            "location_column" : "Local authority",
             "location_type" : "local_authority_name" 
         }
 
@@ -68,7 +87,7 @@ class TestString_To_LocationPlugin(object):
 
         extras = {
             "location_column" : "Local Authority District",
-            "location_type" : "local_authority_name" 
+            "location_type" : "local_authority_district_name" 
         }
 
         resource, package = self._create_csv_resource(output_buffer, extras)
@@ -101,7 +120,7 @@ class TestString_To_LocationPlugin(object):
 
         extras = {
             "location_column" : "Local Authority District",
-            "location_type" : "local_authority_name" 
+            "location_type" : "local_authority_district_name" 
         }
 
         resource, package = self._create_csv_resource(output_buffer, extras)
@@ -145,6 +164,17 @@ class TestString_To_LocationPlugin(object):
         writer.writerows(data)
 
         return output_buffer
+
+    def _load_correctly_formatted_csv(self):
+        output_buffer = StringIO()
+
+        data = csv.reader(open("ckanext/string_to_location/tests/test_data/test_local_authority.csv"))
+        
+        writer = csv.writer(output_buffer)
+        writer.writerows(data)
+
+        return output_buffer
+
 
     def _create_csv_resource(self, file, extras={}):
         package = factories.Dataset()

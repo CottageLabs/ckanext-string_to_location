@@ -18,6 +18,7 @@ class LocationMapper:
 
     COLUMN_TO_ENTITY = {
         "Local Authority District" : OnsEntityTypes.LOCAL_AUTHORITY_DISTRICT,
+        "Local authority" : OnsEntityTypes.LOCAL_AUTHORITY_DISTRICT,
         "Community Safety Partnership" : OnsEntityTypes.COMMUNITY_SAFETY_PARTNERSHIP
     }
 
