@@ -17,10 +17,11 @@ echo 'oracle-java8-installer shared/accepted-oracle-license-v1-1 boolean true' |
 DEBIAN_FRONTEND=noninteractive sudo apt-get -y install oracle-java8-installer
 
 echo "Installing Solr"
+SOLR_VERSION=6.5.1
 cd /tmp
-curl -s --remote-name-all http://apache.mirror.anlx.net/lucene/solr/6.6.2/solr-6.6.2.tgz
-tar xzf solr-6.6.2.tgz solr-6.6.2/bin/install_solr_service.sh --strip-components=2
-sudo ./install_solr_service.sh solr-6.6.2.tgz
+curl -s --remote-name-all https://archive.apache.org/dist/lucene/solr/${SOLR_VERSION}/solr-${SOLR_VERSION}.tgz
+tar xzf solr-${SOLR_VERSION}.tgz solr-${SOLR_VERSION}/bin/install_solr_service.sh --strip-components=2
+sudo ./install_solr_service.sh solr-${SOLR_VERSION}.tgz
 cd -
 
 echo "Installing CKAN and its Python dependencies..."
@@ -40,10 +41,18 @@ echo "Creating the PostgreSQL user and database..."
 sudo -u postgres psql -c "CREATE USER ckan_default WITH PASSWORD 'pass';"
 sudo -u postgres psql -c 'CREATE DATABASE ckan_test WITH OWNER ckan_default;'
 
+# Redis needs to be running for the setup
+sudo service redis-server restart
+
 echo "SOLR config..."
 SOLR_CORE=ckan
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 sudo -u solr /opt/solr/bin/solr create -c ${SOLR_CORE}
+sudo cp ${SCRIPT_DIR}/solrconfig.xml /var/solr/data/${SOLR_CORE}/conf/
 sudo cp ckan/ckan/config/solr/schema.xml /var/solr/data/${SOLR_CORE}/conf/
+sudo rm /var/solr/data/${SOLR_CORE}/conf/managed-schema
+
+sudo service solr restart
 
 echo "Initialising the database..."
 cd ckan
