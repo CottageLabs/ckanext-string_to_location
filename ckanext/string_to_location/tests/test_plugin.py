@@ -60,6 +60,25 @@ class TestString_To_LocationPlugin(object):
 
         response.mustcontain('Complete')
 
+    def test_map_location_with_local_authority_district_named_puppies(self):
+        app = helpers.FunctionalTestBase._get_test_app()
+        user, resource, context = self._create_context()
+
+        output_buffer = self._create_correctly_formatted_puppies_csv()
+
+        extras = {
+            "location_column" : "Puppies",
+            "location_type" : "local_authority_district_name" 
+        }
+
+        resource, package = self._create_csv_resource(output_buffer, extras)
+       
+
+        response = helpers.webtest_maybe_follow(app.get("/dataset/" + package['id'] + "/resource/" + resource['id']+ "/map_location",
+            extra_environ={'REMOTE_USER': str(user['name'])}))
+
+        response.mustcontain('Complete')
+
     def test_map_location_with_sample_file(self):
         app = helpers.FunctionalTestBase._get_test_app()
         user, resource, context = self._create_context()
@@ -68,7 +87,7 @@ class TestString_To_LocationPlugin(object):
 
         extras = {
             "location_column" : "Local authority",
-            "location_type" : "local_authority_name" 
+            "location_type" : "local_authority_district_name" 
         }
 
         resource, package = self._create_csv_resource(output_buffer, extras)
@@ -160,6 +179,15 @@ class TestString_To_LocationPlugin(object):
         output_buffer = StringIO()
 
         data = [["Local Authority District", "Number"], ["Birmingham", 10]]
+        writer = csv.writer(output_buffer)
+        writer.writerows(data)
+
+        return output_buffer
+
+    def _create_correctly_formatted_puppies_csv(self):
+        output_buffer = StringIO()
+
+        data = [["Puppies", "Number"], ["Birmingham", 10]]
         writer = csv.writer(output_buffer)
         writer.writerows(data)
 
