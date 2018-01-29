@@ -16,19 +16,20 @@ from ckanext.string_to_location.ons_code_mapper import OnsCodeMapper
 
 class LocationMapper:
 
-    COLUMN_TO_ENTITY = {
-        "Local Authority District" : OnsEntityTypes.LOCAL_AUTHORITY_DISTRICT,
-        "Community Safety Partnership" : OnsEntityTypes.COMMUNITY_SAFETY_PARTNERSHIP
+    COLUMN_TYPE_TO_ENTITY_TYPE = {
+        "local_authority_district_name" : OnsEntityTypes.LOCAL_AUTHORITY_DISTRICT,
+        "community_safety_partnership_name" : OnsEntityTypes.COMMUNITY_SAFETY_PARTNERSHIP
     }
 
-    def __init__(self, table, column_name, is_name):
+    def __init__(self, table, column_name, column_type, is_name):
         self.table = table
         self.column_name = column_name
+        self.column_type = column_type
         self.is_name = is_name
 
     def map_location(self):
                        
-        source_entity_type = self.COLUMN_TO_ENTITY[self.column_name]
+        source_entity_type = self.COLUMN_TYPE_TO_ENTITY_TYPE[self.column_type]
         target_entity_type = OnsEntityTypes.LOCAL_AUTHORITY_DISTRICT
        
         matches, errors = self._build_matches(self.table, self.column_name, self.is_name, source_entity_type, target_entity_type)
