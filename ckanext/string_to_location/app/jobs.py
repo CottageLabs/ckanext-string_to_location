@@ -8,10 +8,6 @@ import ckan.logic as logic
 import ckan.lib.uploader as uploader
 import ckan.plugins.toolkit as toolkit
 
-from ckanext.string_to_location.location_mapper import LocationMapper
-from ckanext.string_to_location.location_mapper_log_reader import LocationMapperLogReader
-from ckanext.string_to_location.location_mapper_log_writer import LocationMapperLogWriter
-
 import cgi
 import os
 import sys
@@ -20,6 +16,10 @@ import csv
 import geojson
 import pandas
 import ast
+
+from location_mapper import LocationMapper
+from location_mapper_log_reader import LocationMapperLogReader
+from location_mapper_log_writer import LocationMapperLogWriter
 
 def upload_augmented_resource(self, resource, output_buffer):
     upload = cgi.FieldStorage()

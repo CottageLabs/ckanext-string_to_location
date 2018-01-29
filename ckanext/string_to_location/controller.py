@@ -11,9 +11,9 @@ from ckan.common import config
 import ckan.model
 import ckan.logic as logic
 
-from ckanext.string_to_location.location_mapper import LocationMapper
-from ckanext.string_to_location.location_mapper_log_reader import LocationMapperLogReader
-from ckanext.string_to_location.location_mapper_log_writer import LocationMapperLogWriter
+from ckanext.string_to_location.app.location_mapper import LocationMapper
+from ckanext.string_to_location.app.location_mapper_log_reader import LocationMapperLogReader
+from ckanext.string_to_location.app.location_mapper_log_writer import LocationMapperLogWriter
 
 import cgi
 import os

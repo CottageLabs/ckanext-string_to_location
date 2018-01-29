@@ -1,6 +1,11 @@
-FROM python:2.7.8-onbuild
+FROM python:2.7.8
 
-# Because it's a monster 9 minute build:
-RUN pip install pandas
+# Because it's massive, let's pre-install it
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y sudo curl git python python-dev python-pip libpq-dev redis-server
+RUN pip install --upgrade ez_setup setuptools pip pandas
 
-CMD [ "python", "ckanext/string_to_location/app/main.py", "ckanext/string_to_location/app/settings.py"]
+COPY . /usr/src/app
+RUN pip install -r /usr/src/app/requirements.txt
+
+CMD [ "python", "/usr/src/app/ckanext/string_to_location/app/main.py", "/usr/src/app/ckanext/string_to_location/app/deployment/settings.py"]

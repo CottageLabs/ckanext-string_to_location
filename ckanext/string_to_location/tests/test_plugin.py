@@ -148,6 +148,8 @@ class TestString_To_LocationPlugin(object):
 
     def _create_csv_resource(self, file, extras={}):
         package = factories.Dataset()
+        print("This is the package")
+        print(package)
 
         upload = cgi.FieldStorage()
         upload.filename = 'test.csv'

@@ -15,8 +15,8 @@ import ckan.tests.helpers as helpers
 
 from ckan.common import config
 
-from ckanext.string_to_location.location_mapper_log_reader import LocationMapperLogReader
-from ckanext.string_to_location.location_mapper_log_writer import LocationMapperLogWriter
+from ckanext.string_to_location.app.location_mapper_log_reader import LocationMapperLogReader
+from ckanext.string_to_location.app.location_mapper_log_writer import LocationMapperLogWriter
 
 
 class TestString_To_LocationLogging(object):
