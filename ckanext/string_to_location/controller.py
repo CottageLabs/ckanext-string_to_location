@@ -33,7 +33,7 @@ class LocationMapperController(PackageController):
             context, {'id': resource_id})
         log_writer = LocationMapperLogWriter(resource['id']) 
 
-        column_name, is_name = self._set_column_name_and_type(resource)
+        column_name, column_type, is_name = self._set_column_name_and_type(resource)
 
         if column_name is None:
             log_writer.error("The resource does not specify location columns", state="Something went wrong")
@@ -47,7 +47,7 @@ class LocationMapperController(PackageController):
 
         log_writer.info("Read " + resource['name'] + " in")
 
-        output_buffer = LocationMapper(table, column_name, is_name).map_location()
+        output_buffer = LocationMapper(table, column_name, column_type, is_name).map_location()
 
         new_resource = self._upload_augmented_resource(resource, output_buffer)
 
@@ -87,16 +87,19 @@ class LocationMapperController(PackageController):
 
         if 'location_column' in resource and 'location_type' in resource:
             column_name = resource['location_column']
+            column_type=resource['location_type']
             is_name = resource['location_type'].endswith('_name')
         elif 'location_column' in resource['_extras'] and 'location_type' in resource['_extras']:
             extras = ast.literal_eval(resource['_extras'])
             column_name = extras['location_column']
+            column_type=extras['location_type']
             is_name = extras['location_type'].endswith('_name')
         else:
             column_name = None
+            column_type = None
             is_name = None
 
-        return column_name, is_name
+        return column_name, column_type, is_name
 
     def _upload_augmented_resource(self, resource, output_buffer):
         upload = cgi.FieldStorage()
