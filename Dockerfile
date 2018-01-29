@@ -11,8 +11,8 @@ RUN sed -i "s/^exit 101$/exit 0/" /usr/sbin/policy-rc.d
 
 
 RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y sudo curl git python python-dev python-pip libpq-dev
-RUN pip install --upgrade ez_setup setuptools pip
+    DEBIAN_FRONTEND=noninteractive apt-get install -y sudo curl git python python-dev python-pip libpq-dev redis-server
+RUN pip install --upgrade ez_setup setuptools pip pandas
 
 # END Set up the image to mirror how Travis Trusty image behaves
 
@@ -22,7 +22,6 @@ WORKDIR $PLUGIN_DIRECTORY
 RUN mkdir -p $PLUGIN_DIRECTORY
 ADD bin ./bin
 
-RUN ./bin/install-redis.sh
 RUN ./bin/travis-build-deps.bash
 
 ADD . .
@@ -30,5 +29,5 @@ RUN ./bin/travis-build-plugin.bash
 
 # Run with the local copy of the tests using:
 # > docker build -t ckanext-string_to_location .
-# > docker run --rm  -v .:/var/testbed ckanext-string_to_location
+# > docker run --rm ckanext-string_to_location
 CMD ./bin/travis-run.sh
