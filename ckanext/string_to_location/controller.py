@@ -1,26 +1,14 @@
+import ast
+
+from ckan.controllers.package import PackageController
 from ckan.lib.base import render
+import ckan.common
 import ckan.lib.helpers as helpers
 import ckan.plugins.toolkit as toolkit
-from ckan.controllers.package import PackageController
-
-import ckan.lib.helpers as helpers
-import ckan.lib.uploader as uploader
-from ckan.lib.navl.validators import not_empty
-import ckan.plugins.toolkit
-import ckan.common
 
 from ckanext.string_to_location.location_mapper import map_location_async
-from ckanext.string_to_location.location_mapper import LocationMapper
-
 from ckanext.string_to_location.location_mapper_log_reader import LocationMapperLogReader
 from ckanext.string_to_location.location_mapper_log_writer import LocationMapperLogWriter
-
-import cgi
-import os
-import sys
-import codecs
-import csv
-import ast
 
 class LocationMapperController(PackageController):
 
@@ -33,12 +21,12 @@ class LocationMapperController(PackageController):
 
         if 'location_column' in resource and 'location_type' in resource:
             column_name = resource['location_column']
-            column_type=resource['location_type']
+            column_type = resource['location_type']
             is_name = resource['location_type'].endswith('_name')
         elif 'location_column' in resource['_extras'] and 'location_type' in resource['_extras']:
             extras = ast.literal_eval(resource['_extras'])
             column_name = extras['location_column']
-            column_type=extras['location_type']
+            column_type = extras['location_type']
             is_name = extras['location_type'].endswith('_name')
         else:
             column_name = None
@@ -75,4 +63,3 @@ class LocationMapperController(PackageController):
 
         return render('custom/resource_location_mapping_status.html',
                            extra_vars={'status': status})
-
