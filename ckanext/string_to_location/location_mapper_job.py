@@ -1,6 +1,8 @@
 import cgi
 import codecs
+import geojson
 import pandas
+from StringIO import StringIO
 
 from ckan.common import config
 import ckan.lib.helpers as helpers
@@ -51,10 +53,17 @@ def perform(resource_id, username):
     resource_contents = codecs.open(resource_path, 'rb', 'cp1257')
 
     table = pandas.read_csv(resource_contents)
+    row_count = table.shape[0]
+    column_count = table.shape[1]
+    log_writer.info("Loaded resource contents: " + str(row_count) + " rows, " + str(column_count) + " columns")
 
-    log_writer.info("Loaded contents of " + resource['name'])
+    geojson_version = LocationMapper(table, column_name, column_type, is_name).map_and_build_geojson()
+    match_percentage = len(geojson_version.features) / float(row_count)
+    log_writer.info("Matched ONS GeoJSON objects: {} of {} ({:.1%})".format(len(geojson_version.features), row_count, match_percentage))
 
-    output_buffer = LocationMapper(table, column_name, column_type, is_name).map_location()
+
+    output_buffer = StringIO()
+    geojson.dump(geojson_version, output_buffer, ignore_nan=True)
 
     upload = cgi.FieldStorage()
     # FIXME: replace with source filename + modified extension
@@ -63,7 +72,9 @@ def perform(resource_id, username):
 
     data_dict = {
         "package_id": resource['package_id'],
+        # TODO improve naming
         "name": "Augmented " + resource['name'],
+        # TODO improve description
         "description": "Geo-mapped representation of " + resource['name'],
         "format": "application/geo+json",
         "upload": upload
@@ -78,5 +89,7 @@ def perform(resource_id, username):
                     + helpers.url_for(controller='package',
                                       action='resource_read',
                                       id=new_resource['package_id'],
-                                      resource_id=new_resource['id']),
-                    state="complete")
+                                      resource_id=new_resource['id'])
+                    )
+
+    log_writer.info("Location mapping completed", state="complete")
