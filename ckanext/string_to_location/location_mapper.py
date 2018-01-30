@@ -1,29 +1,21 @@
 import cgi
-import os
-import sys
 import codecs
-import csv
 import geojson
-import logging
-import pandas
-
 from geojson import Feature, FeatureCollection
+import pandas
 from StringIO import StringIO
 
-import ckan.plugins.toolkit as toolkit
+from ckan.common import config
+import ckan.lib.helpers as helpers
 import ckan.lib.uploader as uploader
 import ckan.logic as logic
-from ckan.common import config
-
-import ckan.lib.helpers as helpers
 import ckan.model
+import ckan.plugins.toolkit as toolkit
 
-from ckanext.string_to_location.location_mapper_log_reader import LocationMapperLogReader
 from ckanext.string_to_location.location_mapper_log_writer import LocationMapperLogWriter
-
-from ckanext.string_to_location.ons_entity_types import OnsEntityTypes
 from ckanext.string_to_location.null_ons_entity import NullOnsEntity
 from ckanext.string_to_location.ons_entity_builder import OnsEntityBuilder
+from ckanext.string_to_location.ons_entity_types import OnsEntityTypes
 
 # FIXME comments EVIL HACK
 def map_location_async(resource_id, username):
@@ -86,19 +78,20 @@ def map_location_async(resource_id, username):
         {"model": ckan.model, "ignore_auth": True, "user": username}, data_dict)
 
     # Update the user-facing log
-    log_writer.info("Added new resource to dataset " \
-                   + config.get('ckan.site_url')  \
-                   + helpers.url_for(controller='package',
-                                    action='resource_read',
-                                    id=new_resource['package_id'],
-                                    resource_id=new_resource['id']),
-                   state="complete")
+    log_writer.info("Added new resource to dataset "
+                    + config.get('ckan.site_url')
+                    + helpers.url_for(controller='package',
+                                      action='resource_read',
+                                      id=new_resource['package_id'],
+                                      resource_id=new_resource['id']),
+                    state="complete")
+
 
 class LocationMapper:
 
     COLUMN_TYPE_TO_ENTITY_TYPE = {
-        "local_authority_district_name" : OnsEntityTypes.LOCAL_AUTHORITY_DISTRICT,
-        "community_safety_partnership_name" : OnsEntityTypes.COMMUNITY_SAFETY_PARTNERSHIP
+        "local_authority_district_name": OnsEntityTypes.LOCAL_AUTHORITY_DISTRICT,
+        "community_safety_partnership_name": OnsEntityTypes.COMMUNITY_SAFETY_PARTNERSHIP
     }
 
     def __init__(self, table, column_name, column_type, is_name):
@@ -134,7 +127,6 @@ class LocationMapper:
         # print(f"    {error_count} errors")
         # print("")
 
-
     def _entities_to_geojson(self, entities_array, properties):
             features = []
             for entity in entities_array:
@@ -168,5 +160,3 @@ class LocationMapper:
                 })
 
         return entities, errors
-
-
