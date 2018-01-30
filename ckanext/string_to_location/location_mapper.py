@@ -45,6 +45,7 @@ class LocationMapper:
         rows = 0
         for index, row in table.iterrows():
             rows += 1
+            # FIXME: this raises a keyError when the column doesn't exist
             lookup_name = row[column_name]
 
             ons_entity = OnsEntityBuilder.build(lookup_name, source_entity_type, is_name=is_name)
