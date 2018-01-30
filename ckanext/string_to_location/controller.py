@@ -37,8 +37,8 @@ class LocationMapperController(PackageController):
             log_writer.error("The resource does not specify location columns", state="Something went wrong")
         else:
             # Enqueue the location_mapping task
-            ckan.plugins.toolkit.enqueue_job(location_mapper_job, [], {u'resource_id': resource['id'], u'username': ckan.common.c.userobj.name}, title='map_location_async')
-            log_writer.info("Queued location mapping job TODO_ID")
+            job = ckan.plugins.toolkit.enqueue_job(location_mapper_job, [], {u'resource_id': resource['id'], u'username': ckan.common.c.userobj.name}, title='map_location_async')
+            log_writer.info("Queued location mapping (Job ID:" + job.id + ")")
 
         return helpers.redirect_to(controller='ckanext.string_to_location.controller:LocationMapperController',
                                    action='resource_location_mapping_status', id=id, resource_id=resource_id)
