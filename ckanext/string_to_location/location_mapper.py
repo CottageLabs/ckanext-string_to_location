@@ -1,9 +1,10 @@
 from geojson import Feature, FeatureCollection
 
+from ckanext.string_to_location.exceptions import LookupNameMissingException
 from ckanext.string_to_location.null_ons_entity import NullOnsEntity
 from ckanext.string_to_location.ons_entity_builder import OnsEntityBuilder
 from ckanext.string_to_location.ons_entity_types import OnsEntityTypes
-
+from ckanext.string_to_location.location_mapper_log_writer import LocationMapperLogWriter
 
 class LocationMapper:
 
@@ -45,8 +46,11 @@ class LocationMapper:
         rows = 0
         for index, row in table.iterrows():
             rows += 1
-            # FIXME: this raises a keyError when the column doesn't exist
-            lookup_name = row[column_name]
+            # FIXME: this raises a KeyError when the column doesn't exist
+            try:
+                lookup_name = row[column_name]
+            except KeyError as key_error:
+                raise LookupNameMissingException
 
             ons_entity = OnsEntityBuilder.build(lookup_name, source_entity_type, is_name=is_name)
 
