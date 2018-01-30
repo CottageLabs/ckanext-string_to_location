@@ -19,26 +19,20 @@ class LocationMapperController(PackageController):
         # Validate the resource before pushing the job
         log_writer = LocationMapperLogWriter(resource['id'])
 
-        if 'location_column' in resource and 'location_type' in resource:
-            column_name = resource['location_column']
-            column_type = resource['location_type']
-            is_name = resource['location_type'].endswith('_name')
-        elif 'location_column' in resource['_extras'] and 'location_type' in resource['_extras']:
-            extras = ast.literal_eval(resource['_extras'])
-            column_name = extras['location_column']
-            column_type = extras['location_type']
-            is_name = extras['location_type'].endswith('_name')
-        else:
-            column_name = None
-            column_type = None
-            is_name = None
+        column_name = (resource['location_column'] or ast.literal_eval(resource.get('_extras', '{}')).get('location_column', None))
+        column_type = resource['location_type'] or ast.literal_eval(resource.get('_extras', '{}')).get('location_type', None)
+        is_name = column_type is not None and column_type.endswith('_name')
 
-        if column_name is None:
-            log_writer.error("The resource does not specify location columns", state="Something went wrong")
-        else:
+        if column_name and column_type:
             # Enqueue the location_mapping task
-            job = ckan.plugins.toolkit.enqueue_job(location_mapper_job, [], {u'resource_id': resource['id'], u'username': ckan.common.c.userobj.name}, title='map_location_async')
+            job = ckan.plugins.toolkit.enqueue_job(location_mapper_job, [], {u'resource_id': resource['id'], u'column_name': column_name, u'column_type': column_type, u'is_name': is_name, u'username': ckan.common.c.userobj.name}, title='map_location_async')
             log_writer.info("Queued location mapping (Job ID:" + job.id + ")")
+        else:
+            if column_name is None:
+                log_writer.error("Location column not specified for resource", state="Something went wrong")
+
+            if column_type is None:
+                log_writer.error("Location type not specified for resource", state="Something went wrong")
 
         return helpers.redirect_to(controller='ckanext.string_to_location.controller:LocationMapperController',
                                    action='resource_location_mapping_status', id=id, resource_id=resource_id)
