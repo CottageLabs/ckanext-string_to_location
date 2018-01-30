@@ -6,7 +6,7 @@ import ckan.common
 import ckan.lib.helpers as helpers
 import ckan.plugins.toolkit as toolkit
 
-from ckanext.string_to_location.location_mapper import map_location_async
+from ckanext.string_to_location.location_mapper_job import perform as location_mapper_job
 from ckanext.string_to_location.location_mapper_log_reader import LocationMapperLogReader
 from ckanext.string_to_location.location_mapper_log_writer import LocationMapperLogWriter
 
@@ -37,7 +37,7 @@ class LocationMapperController(PackageController):
             log_writer.error("The resource does not specify location columns", state="Something went wrong")
         else:
             # Enqueue the location_mapping task
-            ckan.plugins.toolkit.enqueue_job(map_location_async, [], {u'resource_id': resource['id'], u'username': ckan.common.c.userobj.name}, title='map_location_async')
+            ckan.plugins.toolkit.enqueue_job(location_mapper_job, [], {u'resource_id': resource['id'], u'username': ckan.common.c.userobj.name}, title='map_location_async')
             log_writer.info("Queued location mapping job TODO_ID")
 
         return helpers.redirect_to(controller='ckanext.string_to_location.controller:LocationMapperController',
