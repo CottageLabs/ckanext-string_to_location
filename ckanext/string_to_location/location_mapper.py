@@ -1,7 +1,4 @@
-import geojson
 from geojson import Feature, FeatureCollection
-
-from StringIO import StringIO
 
 from ckanext.string_to_location.null_ons_entity import NullOnsEntity
 from ckanext.string_to_location.ons_entity_builder import OnsEntityBuilder
@@ -21,32 +18,14 @@ class LocationMapper:
         self.column_type = column_type
         self.is_name = is_name
 
-    def map_location(self):
+    def map_and_build_geojson(self):
 
         source_entity_type = self.COLUMN_TYPE_TO_ENTITY_TYPE[self.column_type]
 
         entities, errors = self._build_entities(self.table, self.column_name, self.is_name, source_entity_type)
 
         geojson_version = self._entities_to_geojson(entities, list(self.table.columns))
-
-        output_buffer = StringIO()
-        geojson.dump(geojson_version, output_buffer, ignore_nan=True)
-
-        return output_buffer
-
-        #
-        # Summary info
-        #
-
-        # error_count = len(errors)
-
-        # print("========================")
-        # print("Summary:")
-        # print("")
-        # print(f"    {rows} rows in source file")
-        # print(f"    {match_count} {target_entity_type.value} mapped")
-        # print(f"    {error_count} errors")
-        # print("")
+        return geojson_version
 
     def _entities_to_geojson(self, entities_array, properties):
             features = []
