@@ -85,7 +85,6 @@ class LocationMapper:
                 error_message = "Row:" + str(index) + ", " + lookup_name + " did not match."
                 errors.append(error_message)
             else:
-                row[source_entity_type.value + '_geojson'] = ons_entity.geo_polygon
                 entities.append({
                     'entity': ons_entity,
                     'row': row
