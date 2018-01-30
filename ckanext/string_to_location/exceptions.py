@@ -1,0 +1,3 @@
+
+class LookupNameMissingException(Exception):
+    pass

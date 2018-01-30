@@ -1,23 +1,16 @@
-import cgi
-import os
-import sys
-import codecs
-import csv
-import geojson
-
 from geojson import Feature, FeatureCollection
-from StringIO import StringIO
 
-from ckanext.string_to_location.ons_entity_types import OnsEntityTypes
+from ckanext.string_to_location.exceptions import LookupNameMissingException
 from ckanext.string_to_location.null_ons_entity import NullOnsEntity
 from ckanext.string_to_location.ons_entity_builder import OnsEntityBuilder
-
+from ckanext.string_to_location.ons_entity_types import OnsEntityTypes
+from ckanext.string_to_location.location_mapper_log_writer import LocationMapperLogWriter
 
 class LocationMapper:
 
     COLUMN_TYPE_TO_ENTITY_TYPE = {
-        "local_authority_district_name" : OnsEntityTypes.LOCAL_AUTHORITY_DISTRICT,
-        "community_safety_partnership_name" : OnsEntityTypes.COMMUNITY_SAFETY_PARTNERSHIP
+        "local_authority_district_name": OnsEntityTypes.LOCAL_AUTHORITY_DISTRICT,
+        "community_safety_partnership_name": OnsEntityTypes.COMMUNITY_SAFETY_PARTNERSHIP
     }
 
     def __init__(self, table, column_name, column_type, is_name):
@@ -26,37 +19,14 @@ class LocationMapper:
         self.column_type = column_type
         self.is_name = is_name
 
-    def map_location(self):
-                       
+    def map_and_build_geojson(self):
+
         source_entity_type = self.COLUMN_TYPE_TO_ENTITY_TYPE[self.column_type]
-       
+
         entities, errors = self._build_entities(self.table, self.column_name, self.is_name, source_entity_type)
 
         geojson_version = self._entities_to_geojson(entities, list(self.table.columns))
-
-        output_buffer = StringIO()
-        geojson.dump(geojson_version, output_buffer, ignore_nan=True)
-
-        return output_buffer        
-
-        #
-        # Summary info
-        #
-
-        # match_count = len(matches)
-        # error_count = len(errors)
-
-        # matches_with_polygons = sum(1 for match in matches if match['entity'].geo_polygon is not None)
-
-        # print("========================")
-        # print("Summary:")
-        # print("")
-        # print(f"    {rows} rows in source file")
-        # print(f"    {match_count} {target_entity_type.value} mapped")
-        # print(f"    {error_count} errors")
-        # print("")
-        # print(f"    {matches_with_polygons} matches with polygons")
-        
+        return geojson_version
 
     def _entities_to_geojson(self, entities_array, properties):
             features = []
@@ -76,8 +46,12 @@ class LocationMapper:
         rows = 0
         for index, row in table.iterrows():
             rows += 1
-            lookup_name = row[column_name]
-            
+            # FIXME: this raises a KeyError when the column doesn't exist
+            try:
+                lookup_name = row[column_name]
+            except KeyError as key_error:
+                raise LookupNameMissingException
+
             ons_entity = OnsEntityBuilder.build(lookup_name, source_entity_type, is_name=is_name)
 
             # FIXME: this shouldn't be an if statement
@@ -91,5 +65,3 @@ class LocationMapper:
                 })
 
         return entities, errors
-
-    

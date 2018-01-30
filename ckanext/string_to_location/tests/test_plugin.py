@@ -41,6 +41,9 @@ class TestString_To_LocationPlugin(object):
         config.update(cls.original_config)
         ckan.plugins.unload('string_to_location')
 
+    # FIXME: The 4 tests below are end-to-end happy path tests. Currently they are failing because we moved
+    # to using a background job for the mapper. They need to be updated accordingly.
+
     def test_map_location_with_local_authority_district(self):
         app = helpers.FunctionalTestBase._get_test_app()
         user, resource, context = self._create_context()
@@ -130,6 +133,8 @@ class TestString_To_LocationPlugin(object):
                                             action='resource_read', 
                                             id=new_resource['package_id'], 
                                             resource_id=new_resource['id']))
+
+    # FIXME: We expect the tests from here on to pass because they either test a failure case or are not end-to-end tests
 
     def test_map_location_with_correctly_formatted_file_uploads_expected_resources_to_dataset(self):
         app = helpers.FunctionalTestBase._get_test_app()
