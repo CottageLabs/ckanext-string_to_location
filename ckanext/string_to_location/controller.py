@@ -19,8 +19,8 @@ class LocationMapperController(PackageController):
         # Validate the resource before pushing the job
         log_writer = LocationMapperLogWriter(resource['id'])
 
-        column_name = (resource['location_column'] or ast.literal_eval(resource.get('_extras', '{}')).get('location_column', None))
-        column_type = resource['location_type'] or ast.literal_eval(resource.get('_extras', '{}')).get('location_type', None)
+        column_name = resource.get('location_column', None) or ast.literal_eval(resource.get('_extras', '{}')).get('location_column', None)
+        column_type = resource.get('location_type', None) or ast.literal_eval(resource.get('_extras', '{}')).get('location_type', None)
         is_name = column_type is not None and column_type.endswith('_name')
 
         if column_name and column_type:
