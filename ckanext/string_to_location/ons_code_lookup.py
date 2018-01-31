@@ -3,9 +3,6 @@ import logging
 import os
 
 class OnsCodeLookup:
-    """
-    FIXME: should we use class variables, really?
-    """
 
     NAME_SUFFIX = 'NM'
     CODE_SUFFIX = 'CD'
@@ -60,10 +57,6 @@ class OnsCodeLookup:
 
     @classmethod
     def __load_lookup_csv(cls, filename):
-        '''
-        FIXME: document this!
-        '''
-
         package_directory = os.path.dirname(os.path.abspath(__file__))
         path = os.path.join(package_directory, 'data', 'lookups', filename)
 
