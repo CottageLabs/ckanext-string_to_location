@@ -1,7 +1,6 @@
 import geojson
 from geojson import Feature
 import os
-import logging
 from ons_entity_types import OnsEntityTypes
 
 
