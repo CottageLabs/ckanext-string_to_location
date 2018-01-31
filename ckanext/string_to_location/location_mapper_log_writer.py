@@ -38,7 +38,8 @@ class LocationMapperLogWriter:
                 'key': 'location_mapper'
             })
             task = existing_task
-            task['state'] = state
+            if not existing_task['state'] == 'complete':
+                task['state'] = state
         except logic.NotFound:
             task = self._create_task(self.resource_id, state)
 

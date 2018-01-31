@@ -11,6 +11,7 @@ import json
 import csv
 import cgi
 import operator
+import mock
 
 import ckan.model as model
 import ckan.plugins
@@ -18,11 +19,22 @@ import ckan.lib.helpers as h
 import ckan.tests.factories as factories
 import ckan.tests.helpers as helpers
 
-
 from ckan.lib.helpers import url_for
 from ckan.common import config
 
+def sequential_enqueue(job_func, args=None, kwargs=None, title=None):
+    args = args or []
+    kwargs = kwargs or {}
+    job_func(*args, **kwargs)
 
+    class MockJob(object):
+        id = "testid"
+    job = MockJob()
+
+    return job
+
+@mock.patch('ckan.plugins.toolkit.enqueue_job',
+            side_effect=sequential_enqueue)
 class TestString_To_LocationPlugin(object):
 
     @classmethod
@@ -44,7 +56,7 @@ class TestString_To_LocationPlugin(object):
     # FIXME: The 4 tests below are end-to-end happy path tests. Currently they are failing because we moved
     # to using a background job for the mapper. They need to be updated accordingly.
 
-    def test_map_location_with_local_authority_district(self):
+    def test_map_location_with_local_authority_district(self, sequential_enqueue):
         app = helpers.FunctionalTestBase._get_test_app()
         user, resource, context = self._create_context()
 
@@ -63,7 +75,7 @@ class TestString_To_LocationPlugin(object):
 
         response.mustcontain('Complete')
 
-    def test_map_location_with_local_authority_district_named_puppies(self):
+    def test_map_location_with_local_authority_district_named_puppies(self, sequential_enqueue):
         app = helpers.FunctionalTestBase._get_test_app()
         user, resource, context = self._create_context()
 
@@ -82,7 +94,7 @@ class TestString_To_LocationPlugin(object):
 
         response.mustcontain('Complete')
 
-    def test_map_location_with_sample_file(self):
+    def test_map_location_with_sample_file(self, sequential_enqueue):
         app = helpers.FunctionalTestBase._get_test_app()
         user, resource, context = self._create_context()
 
@@ -101,7 +113,7 @@ class TestString_To_LocationPlugin(object):
 
         response.mustcontain('Complete')
 
-    def test_location_mapper_tab_contains_new_resource_url(self):
+    def test_location_mapper_tab_contains_new_resource_url(self, sequential_enqueue):
         app = helpers.FunctionalTestBase._get_test_app()
         user, resource, context = self._create_context()
 
@@ -136,7 +148,7 @@ class TestString_To_LocationPlugin(object):
 
     # FIXME: We expect the tests from here on to pass because they either test a failure case or are not end-to-end tests
 
-    def test_map_location_with_correctly_formatted_file_uploads_expected_resources_to_dataset(self):
+    def test_map_location_with_correctly_formatted_file_uploads_expected_resources_to_dataset(self, sequential_enqueue):
         app = helpers.FunctionalTestBase._get_test_app()
         user, resource, context = self._create_context()
 
@@ -157,7 +169,7 @@ class TestString_To_LocationPlugin(object):
         
         assert_true((len(package['resources'])), 2)
 
-    def test_map_location_with_missing_resource_information(self):
+    def test_map_location_with_missing_resource_information(self, sequential_enqueue):
         app = helpers.FunctionalTestBase._get_test_app()
         user, resource, context = self._create_context()
 
@@ -168,7 +180,7 @@ class TestString_To_LocationPlugin(object):
         response = helpers.webtest_maybe_follow(app.get("/dataset/" + package['id'] + "/resource/" + resource['id']+ "/map_location",
             extra_environ={'REMOTE_USER': str(user['name'])})) 
 
-        response.mustcontain("The resource does not specify location columns")
+        response.mustcontain("Location column not specified for resource")
 
     def _create_context(self):
         user = factories.Sysadmin()
