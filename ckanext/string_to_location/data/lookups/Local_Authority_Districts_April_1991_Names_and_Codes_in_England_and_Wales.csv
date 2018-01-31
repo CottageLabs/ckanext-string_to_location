@@ -1,0 +1,404 @@
+LAD91NM, 1991 Census District Code, OGSS District Code,LAD91CD
+City of London,01AA,01AA,00AA
+Barking and Dagenham,02AQ,01AB,00AB
+Barnet,02AR,01AC,00AC
+Bexley,02AS,01AD,00AD
+Brent,02AT,01AE,00AE
+Bromley,02AU,01AF,00AF
+Camden,01AB,01AG,00AG
+Croydon,02AW,01AH,00AH
+Ealing,02AX,01AJ,00AJ
+Enfield,02AY,01AK,00AK
+Greenwich,02AZ,01AL,00AL
+Hackney,01AC,01AM,00AM
+Hammersmith and Fulham,01AD,01AN,00AN
+Haringey,01AE,01AP,00AP
+Harrow,02BA,01AQ,00AQ
+Havering,02BB,01AR,00AR
+Hillingdon,02BC,01AS,00AS
+Hounslow,02BD,01AT,00AT
+Islington,01AF,01AU,00AU
+Kensington and Chelsea,01AG,01AW,00AW
+Kingston upon Thames,02BE,01AX,00AX
+Lambeth,01AH,01AY,00AY
+Lewisham,01AJ,01AZ,00AZ
+Merton,02BF,01BA,00BA
+Newham,01AK,01BB,00BB
+Redbridge,02BG,01BC,00BC
+Richmond upon Thames,02BH,01BD,00BD
+Southwark,01AL,01BE,00BE
+Sutton,02BJ,01BF,00BF
+Tower Hamlets,01AM,01BG,00BG
+Waltham Forest,02BK,01BH,00BH
+Wandsworth,01AN,01BJ,00BJ
+Westminster,01AP,01BK,00BK
+Bolton,03BL,02BL,00BL
+Bury,03BM,02BM,00BM
+Manchester,03BN,02BN,00BN
+Oldham,03BP,02BP,00BP
+Rochdale,03BQ,02BQ,00BQ
+Salford,03BR,02BR,00BR
+Stockport,03BS,02BS,00BS
+Tameside,03BT,02BT,00BT
+Trafford,03BU,02BU,00BU
+Wigan,03BW,02BW,00BW
+Knowsley,04BX,03BX,00BX
+Liverpool,04BY,03BY,00BY
+St. Helens,04BZ,03BZ,00BZ
+Sefton,04CA,03CA,00CA
+Wirral,04CB,03CB,00CB
+Barnsley,05CC,04CC,00CC
+Doncaster,05CE,04CE,00CE
+Rotherham,05CF,04CF,00CF
+Sheffield,05CG,04CG,00CG
+Gateshead,06CH,05CH,00CH
+Newcastle upon Tyne,06CJ,05CJ,00CJ
+North Tyneside,06CK,05CK,00CK
+South Tyneside,06CL,05CL,00CL
+Sunderland,06CM,05CM,00CM
+Birmingham,07CN,06CN,00CN
+Coventry,07CQ,06CQ,00CQ
+Dudley,07CR,06CR,00CR
+Sandwell,07CS,06CS,00CS
+Solihull,07CT,06CT,00CT
+Walsall,07CU,06CU,00CU
+Wolverhampton,07CW,06CW,00CW
+Bradford,08CX,07CX,00CX
+Calderdale,08CY,07CY,00CY
+Kirklees,08CZ,07CZ,00CZ
+Leeds,08DA,07DA,00DA
+Wakefield,08DB,07DB,00DB
+Bath,09DC,08UB,08UB
+Bristol,09DD,08UC,08UC
+Kingswood,09DE,08UD,08UD
+Northavon,09DF,08UE,08UE
+Wansdyke,09DG,08UF,08UF
+Woodspring,09DH,08UG,08UG
+Luton,10DJ,09UB,09UB
+Mid Bedfordshire,10DK,09UC,09UC
+North Bedfordshire,10DL,09UD,09UD
+South Bedfordshire,10DM,09UE,09UE
+Bracknell Forest,11DN,10UB,10UB
+Newbury,11DP,10UC,10UC
+Reading,11DQ,10UD,10UD
+Slough,11DR,10UE,10UE
+Windsor and Maidenhead,11DS,10UF,10UF
+Wokingham,11DT,10UG,10UG
+Aylesbury Vale,12DU,11UB,11UB
+Chiltern,12DW,11UC,11UC
+Milton Keynes,12DX,11UD,11UD
+South Bucks,12DY,11UE,11UE
+Wycombe,12DZ,11UF,11UF
+Cambridge,13EB,12UB,12UB
+East Cambridgeshire,13EC,12UC,12UC
+Fenland,13EE,12UD,12UD
+Huntingdonshire,13EF,12UE,12UE
+Peterborough,13EG,12UF,12UF
+South Cambridgeshire,13EH,12UG,12UG
+Chester,14EJ,13UB,13UB
+Congleton,14EK,13UC,13UC
+Crewe and Nantwich,14EL,13UD,13UD
+Ellesmere Port and Neston,14EM,13UE,13UE
+Halton,14EN,13UF,13UF
+Macclesfield,14EP,13UG,13UG
+Vale Royal,14EQ,13UH,13UH
+Warrington,14ER,13UJ,13UJ
+Hartlepool,15ES,14UB,14UB
+Langbaurgh-on-Tees,15ET,14UC,14UC
+Middlesbrough,15EU,14UD,14UD
+Stockton-on-Tees,15EW,14UE,14UE
+Caradon,16EX,15UB,15UB
+Carrick,16EY,15UC,15UC
+Kerrier,16EZ,15UD,15UD
+North Cornwall,16FA,15UE,15UE
+Penwith,16FB,15UF,15UF
+Restormel,16FC,15UG,15UG
+"Scilly, Isles of",16FD,15UH,15UH
+Allerdale,17FE,16UB,16UB
+Barrow-in-Furness,17FF,16UC,16UC
+Carlisle,17FG,16UD,16UD
+Copeland,17FH,16UE,16UE
+Eden,17FJ,16UF,16UF
+South Lakeland,17FK,16UG,16UG
+Amber Valley,18FL,17UB,17UB
+Bolsover,18FM,17UC,17UC
+Chesterfield,18FN,17UD,17UD
+Derby,18FP,17UE,17UE
+Derbyshire Dales,18FQ,17UF,17UF
+Erewash,18FR,17UG,17UG
+High Peak,18FS,17UH,17UH
+North East Derbyshire,18FT,17UJ,17UJ
+South Derbyshire,18FU,17UK,17UK
+East Devon,19FW,18UB,18UB
+Exeter,19FX,18UC,18UC
+Mid Devon,19FY,18UD,18UD
+North Devon,19FZ,18UE,18UE
+Plymouth,19GA,18UF,18UF
+South Hams,19GB,18UG,18UG
+Teignbridge,19GC,18UH,18UH
+Torbay,19GD,18UJ,18UJ
+Torridge,19GE,18UK,18UK
+West Devon,19GF,18UL,18UL
+Bournemouth,20GG,19UB,19UB
+Christchurch,20GH,19UC,19UC
+East Dorset,20GJ,19UD,19UD
+North Dorset,20GK,19UE,19UE
+Poole,20GL,19UF,19UF
+Purbeck,20GM,19UG,19UG
+West Dorset,20GN,19UH,19UH
+Weymouth and Portland,20GP,19UJ,19UJ
+Chester-le-Street,21GQ,20UB,20UB
+Darlington,21GR,20UC,20UC
+Derwentside,21GS,20UD,20UD
+Durham,21GT,20UE,20UE
+Easington,21GU,20UF,20UF
+Sedgefield,21GW,20UG,20UG
+Teesdale,21GX,20UH,20UH
+Wear Valley,21GY,20UJ,20UJ
+Brighton,22GZ,21UB,21UB
+Eastbourne,22HA,21UC,21UC
+Hastings,22HB,21UD,21UD
+Hove,22HC,21UE,21UE
+Lewes,22HD,21UF,21UF
+Rother,22HE,21UG,21UG
+Wealden,22HF,21UH,21UH
+Basildon,23HG,22UB,22UB
+Braintree,23HH,22UC,22UC
+Brentwood,23HJ,22UD,22UD
+Castle Point,23HK,22UE,22UE
+Chelmsford,23HL,22UF,22UF
+Colchester,23HM,22UG,22UG
+Epping Forest,23HN,22UH,22UH
+Harlow,23HP,22UJ,22UJ
+Maldon,23HQ,22UK,22UK
+Rochford,23HR,22UL,22UL
+Southend-on-Sea,23HS,22UM,22UM
+Tendring,23HT,22UN,22UN
+Thurrock,23HU,22UP,22UP
+Uttlesford,23HW,22UQ,22UQ
+Cheltenham,24HX,23UB,23UB
+Cotswold,24HY,23UC,23UC
+Forest of Dean,24HZ,23UD,23UD
+Gloucester,24JA,23UE,23UE
+Stroud,24JB,23UF,23UF
+Tewkesbury,24JC,23UG,23UG
+Basingstoke and Deane,25JD,24UB,24UB
+East Hampshire,25JE,24UC,24UC
+Eastleigh,25JF,24UD,24UD
+Fareham,25JG,24UE,24UE
+Gosport,25JH,24UF,24UF
+Hart,25JJ,24UG,24UG
+Havant,25JK,24UH,24UH
+New Forest,25JL,24UJ,24UJ
+Portsmouth,25JM,24UK,24UK
+Rushmoor,25JN,24UL,24UL
+Southampton,25JP,24UM,24UM
+Test Valley,25JQ,24UN,24UN
+Winchester,25JR,24UP,24UP
+Bromsgrove,26JS,25UB,25UB
+Hereford,26JT,25UC,25UC
+Leominster,26JU,25UD,25UD
+Malvern Hills,26JW,25UE,25UE
+Redditch,26JX,25UF,25UF
+South Herefordshire,26JY,25UG,25UG
+Worcester,26JZ,25UH,25UH
+Wychavon,26KA,25UJ,25UJ
+Wyre Forest,26KB,25UK,25UK
+Broxbourne,27KC,26UB,26UB
+Dacorum,27KD,26UC,26UC
+East Hertfordshire,27KE,26UD,26UD
+Hertsmere,27KF,26UE,26UE
+North Hertfordshire,27KG,26UF,26UF
+St Albans,27KH,26UG,26UG
+Stevenage,27KJ,26UH,26UH
+Three Rivers,27KK,26UJ,26UJ
+Watford,27KL,26UK,26UK
+Welwyn Hatfield,27KM,26UL,26UL
+Boothferry,28KN,27UB,27UB
+Cleethorpes,28KP,27UC,27UC
+East Yorkshire,28KQ,27UD,27UD
+"East Yorkshire, Borough of Beverley",28KR,27UE,27UE
+Glanford,28KS,27UF,27UF
+Great Grimsby,28KT,27UG,27UG
+Holderness,28KU,27UH,27UH
+Kingston upon Hull,28KW,27UJ,27UJ
+Scunthorpe,28KX,27UK,27UK
+Medina,29KY,28UB,28UB
+South Wight,29KZ,28UC,28UC
+Ashford,30LC,29UB,29UB
+Canterbury,30LD,29UC,29UC
+Dartford,30LE,29UD,29UD
+Dover,30LF,29UE,29UE
+Gillingham,30LG,29UF,29UF
+Gravesham,30LH,29UG,29UG
+Maidstone,30LJ,29UH,29UH
+Rochester upon Medway,30LK,29UJ,29UJ
+Sevenoaks,30LL,29UK,29UK
+Shepway,30LM,29UL,29UL
+Swale,30LN,29UM,29UM
+Thanet,30LP,29UN,29UN
+Tonbridge and Malling,30LQ,29UP,29UP
+Tunbridge Wells,30LR,29UQ,29UQ
+Blackburn,31LS,30UB,30UB
+Blackpool,31LT,30UC,30UC
+Burnley,31LU,30UD,30UD
+Chorley,31LW,30UE,30UE
+Fylde,31LX,30UF,30UF
+Hyndburn,31LY,30UG,30UG
+Lancaster,31LZ,30UH,30UH
+Pendle,31MA,30UJ,30UJ
+Preston,31MB,30UK,30UK
+Ribble Valley,31MC,30UL,30UL
+Rossendale,31MD,30UM,30UM
+South Ribble,31ME,30UN,30UN
+West Lancashire,31MF,30UP,30UP
+Wyre,31MG,30UQ,30UQ
+Blaby,32MH,31UB,31UB
+Charnwood,32MJ,31UC,31UC
+Harborough,32MK,31UD,31UD
+Hinckley and Bosworth,32ML,31UE,31UE
+Leicester,32MM,31UF,31UF
+Melton,32MN,31UG,31UG
+North West Leicestershire,32MP,31UH,31UH
+Oadby and Wigston,32MQ,31UJ,31UJ
+Rutland,32MR,31UK,31UK
+Boston,33MS,32UB,32UB
+East Lindsey,33MT,32UC,32UC
+Lincoln,33MU,32UD,32UD
+North Kesteven,33MW,32UE,32UE
+South Holland,33MX,32UF,32UF
+South Kesteven,33MY,32UG,32UG
+West Lindsey,33MZ,32UH,32UH
+Breckland,34NA,33UB,33UB
+Broadland,34NB,33UC,33UC
+Great Yarmouth,34NC,33UD,33UD
+Kings Lynn and West Norfolk,34ND,33UE,33UE
+North Norfolk,34NE,33UF,33UF
+Norwich,34NF,33UG,33UG
+South Norfolk,34NG,33UH,33UH
+Corby,35NH,34UB,34UB
+Daventry,35NJ,34UC,34UC
+East Northamptonshire,35NK,34UD,34UD
+Kettering,35NL,34UE,34UE
+Northampton,35NM,34UF,34UF
+South Northamptonshire,35NN,34UG,34UG
+Wellingborough,35NP,34UH,34UH
+Alnwick,36NQ,35UB,35UB
+Berwick-upon-Tweed,36NR,35UC,35UC
+Blyth Valley,36NS,35UD,35UD
+Castle Morpeth,36NT,35UE,35UE
+Tynedale,36NU,35UF,35UF
+Wansbeck,36NW,35UG,35UG
+Craven,37NX,36UB,36UB
+Hambleton,37NY,36UC,36UC
+Harrogate,37NZ,36UD,36UD
+Richmondshire,37PA,36UE,36UE
+Ryedale,37PB,36UF,36UF
+Scarborough,37PC,36UG,36UG
+Selby,37PD,36UH,36UH
+York,37PE,36UJ,36UJ
+Ashfield,38PF,37UB,37UB
+Bassetlaw,38PG,37UC,37UC
+Broxtowe,38PH,37UD,37UD
+Gedling,38PJ,37UE,37UE
+Mansfield,38PK,37UF,37UF
+Newark and Sherwood,38PL,37UG,37UG
+Nottingham,38PM,37UH,37UH
+Rushcliffe,38PN,37UJ,37UJ
+Cherwell,39PP,38UB,38UB
+Oxford,39PQ,38UC,38UC
+South Oxfordshire,39PR,38UD,38UD
+Vale of White Horse,39PS,38UE,38UE
+West Oxfordshire,39PT,38UF,38UF
+Bridgnorth,40PU,39UB,39UB
+North Shropshire,40PW,39UC,39UC
+Oswestry,40PX,39UD,39UD
+Shrewsbury and Atcham,40PY,39UE,39UE
+South Shropshire,40PZ,39UF,39UF
+The Wrekin,40QA,39UG,39UG
+Mendip,41QB,40UB,40UB
+Sedgemoor,41QC,40UC,40UC
+South Somerset,41QD,40UD,40UD
+Taunton Deane,41QE,40UE,40UE
+West Somerset,41QF,40UF,40UF
+Cannock Chase,42QG,41UB,41UB
+East Staffordshire,42QH,41UC,41UC
+Lichfield,42QJ,41UD,41UD
+Newcastle-under-Lyme,42QK,41UE,41UE
+South Staffordshire,42QL,41UF,41UF
+Stafford,42QM,41UG,41UG
+Staffordshire Moorlands,42QN,41UH,41UH
+Stoke-on-Trent,42QP,41UJ,41UJ
+Tamworth,42QQ,41UK,41UK
+Babergh,43QR,42UB,42UB
+Forest Heath,43QS,42UC,42UC
+Ipswich,43QT,42UD,42UD
+Mid Suffolk,43QU,42UE,42UE
+St. Edmundsbury,43QW,42UF,42UF
+Suffolk Coastal,43QX,42UG,42UG
+Waveney,43QY,42UH,42UH
+Elmbridge,44QZ,43UB,43UB
+Epsom and Ewell,44RA,43UC,43UC
+Guildford,44RB,43UD,43UD
+Mole Valley,44RC,43UE,43UE
+Reigate and Banstead,44RD,43UF,43UF
+Runnymede,44RE,43UG,43UG
+Spelthorne,44RF,43UH,43UH
+Surrey Heath,44RG,43UJ,43UJ
+Tandridge,44RH,43UK,43UK
+Waverley,44RJ,43UL,43UL
+Woking,44RK,43UM,43UM
+North Warwickshire,45RL,44UB,44UB
+Nuneaton and Bedworth,45RM,44UC,44UC
+Rugby,45RN,44UD,44UD
+Stratford-on-Avon,45RP,44UE,44UE
+Warwick,45RQ,44UF,44UF
+Adur,46RR,45UB,45UB
+Arun,46RS,45UC,45UC
+Chichester,46RT,45UD,45UD
+Crawley,46RU,45UE,45UE
+Horsham,46RW,45UF,45UF
+Mid Sussex,46RX,45UG,45UG
+Worthing,46RY,45UH,45UH
+Kennet,47RZ,46UB,46UB
+North Wiltshire,47SA,46UC,46UC
+Salisbury,47SB,46UD,46UD
+Thamesdown,47SC,46UE,46UE
+West Wiltshire,47SD,46UF,46UF
+Alyn and Deeside,48SE,56UB,56UB
+Colwyn,48SF,56UC,56UC
+Delyn,48SG,56UD,56UD
+Glyndwr,48SH,56UE,56UE
+Rhuddlan,48SJ,56UF,56UF
+Wrexham Maelor,48SK,56UG,56UG
+Carmarthen,49SL,57UB,57UB
+Ceredigion,49SM,57UC,57UC
+Dinefwr,49SN,57UD,57UD
+Llanelli,49SP,57UE,57UE
+Preseli Pembrokeshire,49SQ,57UF,57UF
+South Pembrokeshire,49SR,57UG,57UG
+Blaenau Gwent,50SS,58UB,58UB
+Islwyn,50ST,58UC,58UC
+Monmouth,50SU,58UD,58UD
+Newport,50SW,58UE,58UE
+Torfaen,50SX,58UF,58UF
+Aberconwy,51SY,59UB,59UB
+Arfon,51SZ,59UC,59UC
+Dwyfor,51TA,59UD,59UD
+Meirionnydd,51TB,59UE,59UE
+Ynys Mon-Isle of Anglesey,51TC,59UF,59UF
+Cynon Valley,52TD,60UB,60UB
+Merthyr Tydfil,52TE,60UC,60UC
+Ogwr,52TF,60UD,60UD
+Rhondda,52TG,60UE,60UE
+Rhymney Valley,52TH,60UF,60UF
+Taff-Ely,52TJ,60UG,60UG
+Brecknock,53TK,61UB,61UB
+Montgomeryshire,53TL,61UC,61UC
+Radnorshire,53TM,61UD,61UD
+Cardiff,54TN,62UB,62UB
+Vale of Glamorgan,54TP,62UC,62UC
+Lliw Valley,55TQ,63UB,63UB
+Neath,55TR,63UC,63UC
+Port Talbot,55TS,63UD,63UD
+Swansea,55TT,63UE,63UE

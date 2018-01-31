@@ -31,6 +31,9 @@ class LocationMapper:
     def _entities_to_geojson(self, entities_array, properties):
             features = []
             for entity in entities_array:
+                if entity['entity'].geo_polygon is None:
+                    continue
+
                 geometry = entity['entity'].geo_polygon.geometry
                 feature_properties = {}
                 for prop in properties:
@@ -46,7 +49,6 @@ class LocationMapper:
         rows = 0
         for index, row in table.iterrows():
             rows += 1
-            # FIXME: this raises a KeyError when the column doesn't exist
             try:
                 lookup_name = row[column_name]
             except KeyError as key_error:
@@ -54,7 +56,6 @@ class LocationMapper:
 
             ons_entity = OnsEntityBuilder.build(lookup_name, source_entity_type, is_name=is_name)
 
-            # FIXME: this shouldn't be an if statement
             if isinstance(ons_entity, NullOnsEntity):
                 error_message = "Row:" + str(index) + ", " + lookup_name + " did not match."
                 errors.append(error_message)

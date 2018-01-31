@@ -1,0 +1,294 @@
+﻿CSP17CD,CSP17NM,FID
+E22000303,Aylesbury Vale,1
+E22000162,West Lancashire,2
+E22000098,Tewkesbury,3
+E22000304,Bracknell Forest,4
+E22000305,Cherwell,5
+E22000163,Wyre,6
+E22000164,Blaby,7
+E22000306,Chiltern,8
+E22000307,Milton Keynes,9
+E22000165,Charnwood,10
+E22000166,Harborough,11
+E22000308,Oxford,12
+E22000309,Reading,13
+E22000167,Hinckley and Bosworth,14
+E22000168,Leicester,15
+E22000310,Slough,16
+E22000311,South Bucks,17
+E22000169,Melton,18
+E22000170,North West Leicestershire,19
+E22000312,South Oxfordshire,20
+E22000313,Vale of White Horse,21
+E22000171,Oadby and Wigston,22
+E22000172,Rutland,23
+E22000314,West Berkshire,24
+E22000315,West Oxfordshire,25
+E22000173,Boston,26
+E22000174,East Lindsey,27
+E22000316,Windsor and Maidenhead,28
+E22000317,Wokingham,29
+E22000221,King's Lynn and West Norfolk,30
+E22000175,Lincoln,31
+E22000176,North Kesteven,32
+E22000318,Wycombe,33
+E22000099,Bolton,34
+E22000222,North Norfolk,35
+E22000177,South Holland,36
+E22000319,North Warwickshire,37
+E22000100,Bury,38
+E22000223,Norwich,39
+E22000178,South Kesteven,40
+E22000320,Nuneaton and Bedworth,41
+E22000101,Manchester,42
+E22000179,West Lindsey,43
+E22000224,South Norfolk,44
+E22000321,Rugby,45
+E22000180,City of London,46
+E22000102,Oldham,47
+E22000233,Corby,48
+E22000326,"Herefordshire, County of",49
+E22000181,Knowsley,50
+E22000103,Rochdale,51
+E22000235,East Northamptonshire,52
+E22000332,South Worcester,53
+E22000182,Liverpool,54
+E22000236,Kettering,55
+E22000104,Salford,56
+E22000333,Telford and Wrekin,57
+E22000237,Northampton,58
+E22000183,Sefton,59
+E22000105,Stockport,60
+E22000239,Wellingborough,61
+E22000335,Birmingham,62
+E22000184,St. Helens,63
+E22000244,Gateshead,64
+E22000106,Tameside,65
+E22000336,Coventry,66
+E22000245,Newcastle upon Tyne,67
+E22000185,Wirral,68
+E22000107,Trafford,69
+E22000246,North Tyneside,70
+E22000337,Dudley,71
+E22000186,Barking and Dagenham,72
+E22000247,South Tyneside,73
+E22000108,Wigan,74
+E22000338,Sandwell,75
+E22000248,Sunderland,76
+E22000187,Barnet,77
+E22000110,East Hampshire,78
+E22000339,Solihull,79
+E22000251,Ashfield,80
+E22000188,Bexley,81
+E22000340,Walsall,82
+E22000111,Eastleigh,83
+E22000252,Bassetlaw,84
+E22000189,Brent,85
+E22000341,Wolverhampton,86
+E22000112,Fareham,87
+E22000255,Mansfield,88
+E22000190,Bromley,89
+E22000342,Bradford,90
+E22000256,Newark and Sherwood,91
+E22000113,Gosport,92
+E22000191,Camden,93
+E22000257,Nottingham,94
+E22000343,Calderdale,95
+E22000115,Havant,96
+E22000192,Westminster,97
+E22000259,Barnsley,98
+E22000344,Kirklees,99
+E22000193,Croydon,100
+E22000116,Isle of Wight,101
+E22000260,Doncaster,102
+E22000345,Leeds,103
+E22000194,Ealing,104
+E22000117,New Forest,105
+E22000261,Rotherham,106
+E22000346,Wakefield,107
+E22000195,Enfield,108
+E22000262,Sheffield,109
+E22000118,Portsmouth,110
+E22000350,Swindon,111
+E22000263,Cannock Chase,112
+E22000196,Greenwich,113
+E22000120,Southampton,114
+E22000352,Dartford and Gravesham,115
+E22000264,East Staffordshire,116
+E22000197,Hackney,117
+E22000198,Hammersmith and Fulham,118
+E22000199,Haringey,119
+E22000200,Harrow,120
+E22000201,Havering,121
+E22000202,Hillingdon,122
+E22000203,Hounslow,123
+E22000204,Islington,124
+E22000205,Kensington and Chelsea,125
+E22000206,Kingston upon Thames,126
+E22000207,Lambeth,127
+E22000208,Lewisham,128
+E22000209,Merton,129
+E22000210,Newham,130
+E22000211,Redbridge,131
+E22000212,Richmond upon Thames,132
+E22000213,Southwark,133
+E22000214,Sutton,134
+E22000215,Tower Hamlets,135
+E22000216,Waltham Forest,136
+E22000217,Wandsworth,137
+E22000218,Breckland,138
+E22000219,Broadland,139
+E22000220,Great Yarmouth,140
+E22000001,Bath and North East Somerset,141
+E22000265,Lichfield,142
+E22000353,Central Bedfordshire,143
+E22000002,"Bristol, City of",144
+E22000266,Newcastle-under-Lyme,145
+E22000121,Test Valley,146
+E22000354,Cheshire East,147
+E22000003,North Somerset,148
+E22000267,South Staffordshire,149
+E22000122,Winchester,150
+E22000355,Cheshire West and Chester,151
+E22000006,South Gloucestershire,152
+E22000268,Stafford,153
+E22000123,Broxbourne,154
+E22000356,Cornwall,155
+E22000009,Bedford,156
+E22000269,Staffordshire Moorlands,157
+E22000124,Dacorum,158
+E22000357,Daventry and South Northamptonshire,159
+E22000010,Luton,160
+E22000270,Stoke-on-Trent,161
+E22000125,East Hertfordshire,162
+E22000358,Northumberland,163
+E22000013,Cambridge,164
+E22000271,Tamworth,165
+E22000126,Hertsmere,166
+E22000359,South Warwickshire,167
+E22000014,East Cambridgeshire,168
+E22000273,Ipswich,169
+E22000127,North Hertfordshire,170
+E22000360,Shropshire,171
+E22000015,Fenland,172
+E22000274,Suffolk Coastal,173
+E22000128,St Albans,174
+E22000361,Wiltshire,175
+E22000016,Huntingdonshire,176
+E22000278,Waveney,177
+E22000129,Stevenage,178
+E22000362,East and Mid Devon,179
+E22000017,Peterborough,180
+E22000279,Elmbridge,181
+E22000130,Three Rivers,182
+E22000363,North Devon,183
+E22000018,South Cambridgeshire,184
+E22000280,Epsom and Ewell,185
+E22000131,Watford,186
+E22000364,South Devon and Dartmoor,187
+E22000023,Halton,188
+E22000281,Guildford,189
+E22000132,Welwyn Hatfield,190
+E22000365,County Durham,191
+E22000026,Warrington,192
+E22000282,Mole Valley,193
+E22000133,East Riding of Yorkshire,194
+E22000366,South Nottinghamshire,195
+E22000027,Hartlepool,196
+E22000283,Reigate and Banstead,197
+E22000134,"Kingston upon Hull, City of",198
+E22000367,Dorset,199
+E22000028,Redcar and Cleveland,200
+E22000284,Runnymede,201
+E22000135,North East Lincolnshire,202
+E22000368,North Worcestershire,203
+E22000029,Middlesbrough,204
+E22000285,Spelthorne,205
+E22000136,North Lincolnshire,206
+E22000369,Somerset,207
+E22000030,Stockton-on-Tees,208
+E22000286,Surrey Heath,209
+E22000137,Ashford,210
+E22000371,City of York,211
+E22000031,Allerdale,212
+E22000287,Tandridge,213
+E22000138,Canterbury,214
+E22000372,North Yorkshire,215
+E22000032,Barrow-in-Furness,216
+E22000288,Waverley,217
+E22000140,Dover,218
+E22000373,Western Suffolk,219
+E22000033,Carlisle,220
+E22000289,Woking,221
+E22000290,Adur,222
+E22000291,Arun,223
+E22000292,Brighton and Hove,224
+E22000293,Chichester,225
+E22000294,Crawley,226
+E22000295,Eastbourne,227
+E22000296,Hastings,228
+E22000297,Horsham,229
+E22000298,Lewes,230
+E22000299,Mid Sussex,231
+E22000300,Rother,232
+E22000301,Wealden,233
+E22000302,Worthing,234
+E22000374,North Hampshire,235
+E22000034,Copeland,236
+E22000035,Eden,237
+E22000036,South Lakeland,238
+E22000037,Amber Valley,239
+E22000038,Bolsover,240
+E22000039,Chesterfield,241
+E22000040,Derby,242
+E22000041,Derbyshire Dales,243
+E22000042,Erewash,244
+E22000043,High Peak,245
+E22000044,North East Derbyshire,246
+E22000045,South Derbyshire,247
+E22000142,Maidstone,248
+E22000049,Exeter,249
+E22000143,Medway,250
+E22000050,Isles of Scilly,251
+E22000144,Sevenoaks,252
+E22000056,Plymouth,253
+E22000145,Shepway,254
+E22000060,Torbay,255
+E22000146,Swale,256
+E22000063,Bournemouth,257
+E22000147,Thanet,258
+E22000067,Poole,259
+E22000148,Tonbridge and Malling,260
+E22000072,Darlington,261
+E22000149,Tunbridge Wells,262
+E22000079,Basildon,263
+E22000150,Blackburn with Darwen,264
+E22000080,Braintree,265
+E22000151,Blackpool,266
+E22000081,Brentwood,267
+E22000152,Burnley,268
+E22000082,Castle Point,269
+E22000153,Chorley,270
+E22000083,Chelmsford,271
+E22000154,Fylde,272
+E22000084,Colchester,273
+E22000155,Hyndburn,274
+E22000085,Epping Forest,275
+E22000156,Lancaster,276
+E22000086,Harlow,277
+E22000157,Pendle,278
+E22000087,Maldon,279
+E22000158,Preston,280
+E22000088,Rochford,281
+E22000159,Ribble Valley,282
+E22000089,Southend-on-Sea,283
+E22000160,Rossendale,284
+E22000090,Tendring,285
+E22000161,South Ribble,286
+E22000091,Thurrock,287
+E22000092,Uttlesford,288
+E22000093,Cheltenham,289
+E22000094,Cotswold,290
+E22000095,Forest of Dean,291
+E22000096,Gloucester,292
+E22000097,Stroud,293
