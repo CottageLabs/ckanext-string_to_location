@@ -31,6 +31,9 @@ class LocationMapper:
     def _entities_to_geojson(self, entities_array, properties):
             features = []
             for entity in entities_array:
+                if entity['entity'].geo_polygon is None:
+                    continue
+
                 geometry = entity['entity'].geo_polygon.geometry
                 feature_properties = {}
                 for prop in properties:
