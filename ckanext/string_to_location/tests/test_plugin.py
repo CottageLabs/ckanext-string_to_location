@@ -11,7 +11,6 @@ import json
 import csv
 import cgi
 import operator
-import mock
 
 import ckan.model as model
 import ckan.plugins

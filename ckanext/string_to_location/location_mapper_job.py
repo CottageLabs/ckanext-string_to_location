@@ -23,7 +23,6 @@ def perform(resource_id, column_name, column_type, is_name, username):
     '''
     context = None
     resource = toolkit.get_action('resource_show')(context, {'id': resource_id})
-
     log_writer = LocationMapperLogWriter(resource['id'])
 
     try:
