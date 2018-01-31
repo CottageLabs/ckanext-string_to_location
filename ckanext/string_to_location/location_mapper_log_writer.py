@@ -11,13 +11,13 @@ class LocationMapperLogWriter:
     def __init__(self, resource_id):
         self.resource_id = resource_id
 
-    def info(self, message, state='processing', context=None):
+    def info(self, message, state=None, context=None):
         self._log("INFO", message, state, context)
 
-    def warn(self, message, state='processing', context=None):
+    def warn(self, message, state=None, context=None):
         self._log("WARN", message, state, context)
 
-    def error(self, message, state='processing', context=None):
+    def error(self, message, state=None, context=None):
         self._log("ERROR", message, state, context)
 
     def _log(self, log_level, message, state, context):
@@ -38,8 +38,13 @@ class LocationMapperLogWriter:
                 'key': 'location_mapper'
             })
             task = existing_task
-            if not existing_task['state'] == 'complete':
+            
+            if state:
                 task['state'] = state
+
+            if task['state'] is None:
+                task['state'] = 'processing'
+                
         except logic.NotFound:
             task = self._create_task(self.resource_id, state)
 

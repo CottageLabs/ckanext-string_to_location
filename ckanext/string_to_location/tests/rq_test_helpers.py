@@ -6,7 +6,7 @@ For end-to-end tests to pass, we need the background job to run synchronously ra
 Below we are mocking the ckan.plugins.toolkit.enqueue_job function to execute jobs immediately upon being called
 rather than put them on a queue to be picked up on a later date.
 
-Many thanks to Florian Brucker who pointed out this approach on the ckan-fev mailing list!
+Many thanks to Florian Brucker who pointed out this approach on the ckan-dev mailing list!
 '''
 
 def sequential_enqueue(job_func, args=None, kwargs=None, title=None):
