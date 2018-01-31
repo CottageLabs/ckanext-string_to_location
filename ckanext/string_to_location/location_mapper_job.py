@@ -43,7 +43,8 @@ def perform(resource_id, column_name, column_type, is_name, username):
                                                     description="Geo-mapped representation of " + resource['name'],
                                                     filename='mapped_output.geojson',
                                                     geojson_obj=geojson_version,
-                                                    username=username)
+                                                    username=username,
+                                                    source_resource=resource)
 
         # Update the user-facing log
         log_writer.info("Added new resource to dataset {}{}".format(
@@ -83,7 +84,7 @@ def __read_csv_from_resource(resource):
 
     return pandas.read_csv(resource_contents)
 
-def __create_and_upload_geojson_resource(package_id, name, description, filename, geojson_obj, username):
+def __create_and_upload_geojson_resource(package_id, name, description, filename, geojson_obj, username, source_resource):
     file_buffer = StringIO()
     geojson.dump(geojson_obj, file_buffer, ignore_nan=True)
 
@@ -96,7 +97,13 @@ def __create_and_upload_geojson_resource(package_id, name, description, filename
         "name": name,
         "description": description,
         "format": "application/geo+json",
-        "upload": upload
+        "upload": upload,
+        "variant_of": "{}{}".format(
+                        config.get('ckan.site_url'),
+                        helpers.url_for(controller='package',
+                                        action='resource_read',
+                                        id=source_resource['package_id'],
+                                        resource_id=source_resource['id']))
     }
 
     return logic.action.create.resource_create({"model": ckan.model,
